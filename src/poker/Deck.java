@@ -53,4 +53,26 @@ public class Deck{
 		
 		
 	}
+	/**
+	 * getRemaningCards()
+	 * 
+	 * returns the number of remaining cards in deck
+	 * @return int
+	 */
+	public int getRemainingCards(){
+		return remainingCards;
+		
+	}
+	
+	/**
+	 * getCard(int)
+	 * 
+	 * returns the card at the array location of deck
+	 * @param array
+	 * 
+	 * @return Card
+	 */
+	public Card getCard(int array){
+		return deck[array];
+	}
 }

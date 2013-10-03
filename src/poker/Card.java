@@ -90,4 +90,12 @@ public class Card {
 			default: return 'N';
 		}
 	}
+	/**
+	 * display()
+	 * 
+	 * prints a line describing the card
+	 */
+	public void display(){
+		System.out.println(getValue() + " of " + getSuitChar());
+	}
 }
