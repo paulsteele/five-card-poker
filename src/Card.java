@@ -54,21 +54,37 @@ public class Card {
 		switch (number){
 		
 		case 0: return "Ace";
-		case 1:
-		case 2:
-		case 3:
-		case 4:
-		case 5:
-		case 6:
-		case 7:
-		case 8:
-		case 9:
-		case 10:
-		case 11:
-		case 12:
-		case 13:
+		case 1: return "Two";
+		case 2: return "Three";
+		case 3: return "Four";
+		case 4: return "Five";
+		case 5: return "Six";
+		case 6: return "Seven";
+		case 7: return "Eight";
+		case 8: return "Nine";
+		case 9: return "Ten";
+		case 10: return "Jack";
+		case 11: return "Queen";
+		case 12: return "King";
 		default: return "NA";
 		}
 		
+	}
+	
+	/**
+	 * getSuitChar()
+	 * 
+	 * returns a char value of the suit e.g. a spade would return ♠ 
+	 * ♠ ♣ ♦ ♥
+	 * @return char
+	 */
+	public char getSuitChar(){
+		switch(suit){
+		case 0: return '♥';
+		case 1: return '♦';
+		case 2: return '♣';
+		case 3: return '♠';
+		default: return 'N';
+		}
 	}
 }
