@@ -4,7 +4,7 @@
  * Class contains a card value and suit value
  * Also contains a terminal display method
  * 
- * @author paul
+ * @author Paul Steele
  *
  */
 public class Card {
@@ -53,20 +53,21 @@ public class Card {
 	public String getValue(){
 		switch (number){
 		
-		case 0: return "Ace";
-		case 1: return "Two";
-		case 2: return "Three";
-		case 3: return "Four";
-		case 4: return "Five";
-		case 5: return "Six";
-		case 6: return "Seven";
-		case 7: return "Eight";
-		case 8: return "Nine";
-		case 9: return "Ten";
-		case 10: return "Jack";
-		case 11: return "Queen";
-		case 12: return "King";
-		default: return "NA";
+			case 0: return "Ace";
+			case 1: return "Two";
+			case 2: return "Three";
+			case 3: return "Four";
+			case 4: return "Five";
+			case 5: return "Six";
+			case 6: return "Seven";
+			case 7: return "Eight";
+			case 8: return "Nine";
+			case 9: return "Ten";
+			case 10: return "Jack";
+			case 11: return "Queen";
+			case 12: return "King";
+		
+			default: return "NA";
 		}
 		
 	}
@@ -80,11 +81,12 @@ public class Card {
 	 */
 	public char getSuitChar(){
 		switch(suit){
-		case 0: return '♥';
-		case 1: return '♦';
-		case 2: return '♣';
-		case 3: return '♠';
-		default: return 'N';
+			case 0: return '♥';
+			case 1: return '♦';
+			case 2: return '♣';
+			case 3: return '♠';
+			
+			default: return 'N';
 		}
 	}
 }
