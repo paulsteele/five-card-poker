@@ -40,15 +40,15 @@ public class Deck{
 	 * Shuffles the deck
 	 */
 	public void shuffle(){
-		Random random = new Random();
-		int firstNumber;
-		int secondNumber;
+		Random random = new Random(); //gets new random
+		int firstNumber; //obtains a random spot between 0 and 52
+		int secondNumber; //obtains a random spot between 0 and 52
 		for (int i = 0; i < remainingCards; i++){
-			firstNumber = random.nextInt(remainingCards);
+			firstNumber = random.nextInt(remainingCards); 
 			secondNumber = random.nextInt(remainingCards);
 			Card temp = deck[firstNumber];
-			deck[firstNumber] = deck[secondNumber];
-			deck[secondNumber] = temp;
+			deck[firstNumber] = deck[secondNumber]; //puts 2nd card into first
+			deck[secondNumber] = temp;//puts 1st card into 2nd
 		}
 		
 		
@@ -74,5 +74,28 @@ public class Deck{
 	 */
 	public Card getCard(int array){
 		return deck[array];
+	}
+	
+	/**
+	 * draw()
+	 * 
+	 * takes the first card out of the deck and resizes the array
+	 * 
+	 * @return Card
+	 */
+	public Card draw() {
+		
+		Card[] temp = new Card[remainingCards - 1]; //makes a new card array one size smaller than previous deck
+		
+		Card ret = deck[0]; //gets the card that will be returned
+		
+		for (int i = 1; i < remainingCards -1 ; i++) {
+			temp[i - 1] = deck [i];//goes through and puts 1 through top into 0 through new top in the new deck
+		}
+		deck = temp; //makes the deck = the new deck
+		remainingCards -= 1; //lowers card count
+		
+		return ret; //returns the actual card after all that work
+		
 	}
 }
