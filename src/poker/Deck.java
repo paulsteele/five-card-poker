@@ -73,7 +73,10 @@ public class Deck{
 	 * @return Card
 	 */
 	public Card getCard(int array){
-		return deck[array];
+		if (!( array < 0 || array > remainingCards)) //protection from out of bounds
+			return deck[array];
+		else
+			return null;
 	}
 	
 	/**
