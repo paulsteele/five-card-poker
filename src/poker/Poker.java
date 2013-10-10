@@ -1,5 +1,6 @@
 package poker;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -30,7 +31,9 @@ public class Poker {
 	 * @param args
 	 */
 	public static void main(String[] args) {//Actual game runtime
-		
+		Scanner in = new Scanner(System.in);
+		Poker.callMenu(in);
+		in.close();
 	}
 	/**
 	 * Constructor
@@ -158,8 +161,9 @@ public class Poker {
 	 * calls up a menu
 	 * 
 	 * @return true if a game is to be played
+	 *
 	 */
-	public static boolean callMenu(){
+	public static boolean callMenu(Scanner in){
 		clearScreen();//clears screen for use
 		System.out.println(TEXTLINE + "Welcome to Five Card Poker" + TEXTLINE);
 		System.out.println("\nPlease Select an option");
@@ -168,23 +172,35 @@ public class Poker {
 		System.out.println("2). How to play");
 		System.out.println("3). About");
 		System.out.println("4). Exit");
-		Scanner in = new Scanner(System.in);
 		String holder = in.next();
 		switch (holder){
 		case "1":{
-			
+			return true;
 		}
 		case "2":{
-			
+			System.out.println("Poker is a really fun game, try it sometime");
+			System.out.println("Dont't worry I'll add more to this later");
+			System.out.println("");
+			System.out.println("Press return to go back to menu");
+			return callMenu(in); //recurses and calls the menu again
 		}
 		case "3":{
-			
+			System.out.println("This project was coded in Java using the Eclipse IDE");
+			System.out.println("Coded by Paul Steele as a Semester Project");
+			System.out.println("Work began the 8th week of class");
+			System.out.println("");
+			System.out.println("Press return to go back to menu");
+			return callMenu(in);
 		}
 		case "4":{
-			
+			//immediate Exit
+			return false;
 		}
 		default:{
-			
+			System.out.println("That is not a valid option");
+			System.out.println("");
+			System.out.println("Press return to go back to menu");
+			return callMenu(in);
 		}
 			
 		}
