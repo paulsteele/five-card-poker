@@ -1,4 +1,7 @@
 package poker;
+
+import java.util.Scanner;
+
 /**
  * Poker
  * 
@@ -12,15 +15,18 @@ public class Poker {
 	private int currentPlayer; //contains who the current player is
 	private int playerOneCash; //cash that player One has
 	private int playerTwoCash; //cash that player Two has
+	private Hand playerOneHand; //hand of player One
+	private Hand playerTwoHand; //hand of player Two
 	private int bet; //the current bet 
 	private int ante; //the bet that has to be overcome
 	public final int STARTING_CASH = 500;
 	private Deck deck; //the deck of the game
-	
+	private static final int CLEARSCREEN_AMOUNT = 100; //number of lines to clear screen with 
+	private static final String TEXTLINE = "------------------"; //dashes that appended to menus
 	/**
 	 * main()
 	 * 
-	 * runs the game
+	 * calls menu and run game
 	 * @param args
 	 */
 	public static void main(String[] args) {//Actual game runtime
@@ -135,5 +141,63 @@ public class Poker {
 			return playerTwoCash;
 		
 		return -1;
+	}
+	
+	/**
+	 * run()
+	 * 
+	 * does the actual running of the game
+	 * 
+	 */
+	public void run(){
+		
+	}
+	/**
+	 * callMenu()
+	 * 
+	 * calls up a menu
+	 * 
+	 * @return true if a game is to be played
+	 */
+	public static boolean callMenu(){
+		clearScreen();//clears screen for use
+		System.out.println(TEXTLINE + "Welcome to Five Card Poker" + TEXTLINE);
+		System.out.println("\nPlease Select an option");
+		System.out.println("");
+		System.out.println("1). Play a game");
+		System.out.println("2). How to play");
+		System.out.println("3). About");
+		System.out.println("4). Exit");
+		Scanner in = new Scanner(System.in);
+		String holder = in.next();
+		switch (holder){
+		case "1":{
+			
+		}
+		case "2":{
+			
+		}
+		case "3":{
+			
+		}
+		case "4":{
+			
+		}
+		default:{
+			
+		}
+			
+		}
+	}
+	
+	/**
+	 * clearScreen()
+	 * 
+	 * utility class to clear the screen
+	 */
+	private static void clearScreen(){
+		for (int i = 0 ; i < CLEARSCREEN_AMOUNT; i++){
+			System.out.println("");
+		}
 	}
 }
