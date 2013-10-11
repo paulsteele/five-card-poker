@@ -9,4 +9,5 @@ public interface Player {
 	public void changeCash(int differnce);
 	public int getAnte(int past);
 	public int getBid(int past);
+	public boolean isFolding();
 }

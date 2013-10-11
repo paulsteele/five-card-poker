@@ -2,10 +2,11 @@ package poker;
 
 import java.util.Scanner;
 
-public class Human implements Player{
+public class Human implements Player {
 	private int cash;
 	private Hand hand;
 	private String name;
+	private boolean folding;
 	
 	public void setName(String name){
 		this.name = name;
@@ -16,6 +17,7 @@ public class Human implements Player{
 	}
 	public void setHand(Hand hand){
 		this.hand = hand;
+		folding = false;
 	}
 	
 	public int getCash(){
@@ -32,14 +34,23 @@ public class Human implements Player{
 	
 	public int getAnte(int past){
 		Scanner in = new Scanner(System.in);
-		int ante = 0;
-		while (ante < past){
-			System.out.print("Please enter your ante");
-			ante = in.nextInt();
-			System.out.println("");
-		}
+		System.out.println("Play this round? (y/n)");
+		String input = in.next();
 		in.close();
-		return ante;
+		switch (input.toLowerCase()){
+			case "y": {
+				changeCash(-5); 
+				System.out.println(getName() + " puts $5 forward as ante.");
+				return 5;
+			}
+			default: {
+				folding = true;
+				System.out.println(getName() + " folds");
+				return 0;
+			}
+		}
+		
+		
 			
 		
 	}
@@ -54,5 +65,9 @@ public class Human implements Player{
 		}
 		in.close();
 		return bid;
+	}
+	
+	public boolean isFolding(){
+		return folding;
 	}
 }

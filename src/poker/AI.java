@@ -14,6 +14,7 @@ public class AI implements Player{
 	private Hand hand;
 	private Random rand = new Random();
 	private String name;
+	private boolean folding;
 	
 	public void setName(String name){
 		this.name = name;
@@ -25,6 +26,7 @@ public class AI implements Player{
 	
 	public void setHand(Hand hand){
 		this.hand = hand;
+		folding = false;
 	}
 	
 	public int getCash(){
@@ -41,13 +43,20 @@ public class AI implements Player{
 	
 	public int getAnte(int past){
 		Poker.sleep(500);
-		int ante = 0;
-		while (ante < past)
-			ante = rand.nextInt(getCash() / 10); //bids up to maximum of 1/10 of current cash
+		int ret;
+		if (getCash() > 5){
+			System.out.println(getName() + " puts $5 forward as ante.");
+			changeCash(-5);
+			ret = 5;
+		}
+		else {
+			folding = true;
+			System.out.println(getName() + " folds");
+			ret = 0;
+		}
 		
-		System.out.println(getName() + " puts " + ante + " forward as ante.");
 		Poker.sleep(1500);
-		return ante;
+		return ret;
 	}
 	
 	public int getBid(int past){
@@ -59,5 +68,9 @@ public class AI implements Player{
 		System.out.println(getName() + " bids " + bid);
 		Poker.sleep(1500);
 		return bid;
+	}
+	
+	public boolean isFolding(){
+		return folding;
 	}
 }

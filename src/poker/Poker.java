@@ -18,7 +18,6 @@ public class Poker {
 	private Deck deck; //the deck of the game
 	private static final int CLEARSCREEN_AMOUNT = 100; //number of lines to clear screen with 
 	private static final String TEXTLINE = "------------------"; //dashes that appended to menus
-	private int ante; //the highest ante
 	private int bid; //the highest bid
 	private int pot; //what's in the pot
 	/**
@@ -49,7 +48,7 @@ public class Poker {
 			if (i !=1)
 				players[i].setName("AI " + (i -1));
 			else
-				players[i].setName("Human");
+				players[i].setName("Human " + i);
 		}
 		currentPlayer = 1;
 	}
@@ -88,6 +87,8 @@ public class Poker {
 	public void run(){
 		Poker.clearScreen();
 		deck = new Deck();//
+		pot = 0;
+		bid = 0;
 		deck.shuffle();//start off by shuffling
 		//give each player a brand new hand
 		for (int i = 1; i < PLAYERS + 1; i++){
@@ -102,7 +103,7 @@ public class Poker {
 		}
 		
 		for (int i = 1; i < PLAYERS + 1; i++){
-			players[i].getAnte(5);
+			pot += players[i].getAnte(5);
 		}
 		
 	}
