@@ -11,15 +11,10 @@ import java.util.Scanner;
  *
  */
 public class Poker {
-	
+	private final int PLAYERS;
 	private int currentPlayer; //contains who the current player is
-	private int playerOneCash; //cash that player One has
-	private int playerTwoCash; //cash that player Two has
-	private Hand playerOneHand; //hand of player One
-	private Hand playerTwoHand; //hand of player Two
-	private int bet; //the current bet 
-	private int ante; //the bet that has to be overcome
-	public final int STARTING_CASH = 500;
+	private Player[] players;
+	private final int STARTING_CASH = 500;
 	private Deck deck; //the deck of the game
 	private static final int CLEARSCREEN_AMOUNT = 100; //number of lines to clear screen with 
 	private static final String TEXTLINE = "------------------"; //dashes that appended to menus
@@ -37,9 +32,16 @@ public class Poker {
 	/**
 	 * Constructor
 	 */
-	public Poker() {
-		playerOneCash = STARTING_CASH;
-		playerTwoCash = STARTING_CASH;
+	public Poker(int playersd) {
+		this.PLAYERS = playersd;
+		players = new Player[PLAYERS+1];
+		players[1] = new Human();
+		for (int i = 2; i < PLAYERS + 1; i++){
+			players[i] = new AI();
+		}
+		for (int i = 1; i < PLAYERS+1;i++){
+			players[i].changeCash(STARTING_CASH);
+		}
 	}
 	
 	/**
@@ -60,90 +62,12 @@ public class Poker {
 	 * depending on who the current player is
 	 */
 	public void changePlayer(){
-		if (currentPlayer == 1)
-			currentPlayer = 2;
-		else
+		if (currentPlayer == PLAYERS)
 			currentPlayer = 1;
-	}
-	/**
-	 * getBet()
-	 * 
-	 * returns the bet
-	 * 
-	 * @return int
-	 */
-	public int getBet(){
-		return bet;
+		else
+			currentPlayer +=1;
 	}
 	
-	/**
-	 * setBet()
-	 * 
-	 * sets the bet to the parameter bet
-	 * 
-	 * @param int
-	 */
-	public void setBet(int bet){
-		this.bet = bet;
-	}
-	
-	/**
-	 * getAnte()
-	 * 
-	 * gets the ante the better has to overcome
-	 * 
-	 * @return int
-	 */
-	
-	public int getAnte(){
-		return ante;
-	}
-	
-	/**
-	 * setAnte()
-	 * 
-	 * sets the ante the better has to overcome
-	 * 
-	 * @param int
-	 */
-	
-	public void setAnte(int ante){
-		this.ante = ante;
-	}
-	
-	/**
-	 * changeCash()
-	 * 
-	 * Modify the cash of the player sent in parameter by amount
-	 * 
-	 * @param player
-	 * @param amount
-	 */
-	public void changeCash(int player, int amount){
-		if (player == 1){
-			playerOneCash += amount;
-		}
-		if (player == 2){
-			playerTwoCash += amount;
-		}
-	}
-	
-	/**
-	 * getCash()
-	 * 
-	 * returns the cash of the player
-	 * 
-	 * @param player
-	 * @return int
-	 */
-	public int getCash(int player){
-		if (player ==1 )
-			return playerOneCash;
-		if (player ==2 )
-			return playerTwoCash;
-		
-		return -1;
-	}
 	
 	/**
 	 * run()
@@ -152,6 +76,13 @@ public class Poker {
 	 * 
 	 */
 	public void run(){
+		Poker.clearScreen();
+		deck.shuffle();//start off by shuffling
+		for (int i =0; i < 5; i++){
+			for (int j = 1; j < PLAYERS+1; j++){
+				players[j].getHand().add(deck.draw());
+			}
+		}
 		
 	}
 	/**
@@ -181,6 +112,8 @@ public class Poker {
 			System.out.println("Dont't worry I'll add more to this later");
 			System.out.println("");
 			System.out.println("Press return to go back to menu");
+			in.nextLine();
+			in.nextLine();
 			return callMenu(in); //recurses and calls the menu again
 		}
 		case "3":{
@@ -189,6 +122,8 @@ public class Poker {
 			System.out.println("Work began the 8th week of class");
 			System.out.println("");
 			System.out.println("Press return to go back to menu");
+			in.nextLine();
+			in.nextLine();
 			return callMenu(in);
 		}
 		case "4":{
@@ -199,6 +134,8 @@ public class Poker {
 			System.out.println("That is not a valid option");
 			System.out.println("");
 			System.out.println("Press return to go back to menu");
+			in.nextLine();
+			in.nextLine();
 			return callMenu(in);
 		}
 			
@@ -214,5 +151,9 @@ public class Poker {
 		for (int i = 0 ; i < CLEARSCREEN_AMOUNT; i++){
 			System.out.println("");
 		}
+	}
+	
+	public Player getPlayer(int play){
+		return players[play];
 	}
 }
