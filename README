@@ -1,5 +1,8 @@
 Fall Term Full Project #1
 
-A full blown Poker terminal based game
+A five card draw poker terminal based game
 
-This will be the first Full Project that I do for fall semester. It will include an AI opponent, a menu, and card displaying
+This will be the first Full Project that I do for fall semester.
+
+It supports essentially unlimited number of players(1 human, the rest AI). This isn't really practical as a deck only has so many cards but the code supports it. A hard cap will be established at some point.
+
