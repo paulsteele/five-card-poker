@@ -18,6 +18,9 @@ public class Poker {
 	private Deck deck; //the deck of the game
 	private static final int CLEARSCREEN_AMOUNT = 100; //number of lines to clear screen with 
 	private static final String TEXTLINE = "------------------"; //dashes that appended to menus
+	private int ante; //the highest ante
+	private int bid; //the highest bid
+	private int pot; //what's in the pot
 	/**
 	 * main()
 	 * 
@@ -36,12 +39,19 @@ public class Poker {
 		this.PLAYERS = playersd;
 		players = new Player[PLAYERS+1];
 		players[1] = new Human();
+		//create players
 		for (int i = 2; i < PLAYERS + 1; i++){
 			players[i] = new AI();
 		}
+		//initialization
 		for (int i = 1; i < PLAYERS+1;i++){
 			players[i].changeCash(STARTING_CASH);
+			if (i !=1)
+				players[i].setName("AI " + (i -1));
+			else
+				players[i].setName("Human");
 		}
+		currentPlayer = 1;
 	}
 	
 	/**
@@ -77,11 +87,22 @@ public class Poker {
 	 */
 	public void run(){
 		Poker.clearScreen();
+		deck = new Deck();//
 		deck.shuffle();//start off by shuffling
+		//give each player a brand new hand
+		for (int i = 1; i < PLAYERS + 1; i++){
+			players[i].setHand(new Hand());
+		}
+		
+		//this part fills each players hand with cards
 		for (int i =0; i < 5; i++){
 			for (int j = 1; j < PLAYERS+1; j++){
 				players[j].getHand().add(deck.draw());
 			}
+		}
+		
+		for (int i = 1; i < PLAYERS + 1; i++){
+			players[i].getAnte(5);
 		}
 		
 	}
@@ -155,5 +176,16 @@ public class Poker {
 	
 	public Player getPlayer(int play){
 		return players[play];
+	}
+	
+	public static void sleep(int i){
+	
+			try {
+				Thread.sleep(i);
+			} 
+			catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		
 	}
 }
