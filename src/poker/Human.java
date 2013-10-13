@@ -2,39 +2,8 @@ package poker;
 
 import java.util.Scanner;
 
-public class Human implements Player {
-	private int cash;
-	private Hand hand;
-	private String name;
-	private boolean folding;
+public class Human extends Player {
 	
-	public void setName(String name){
-		this.name = name;
-	}
-	
-	public String getName(){
-		return name;
-	}
-	public void setHand(Hand hand){
-		this.hand = hand;
-		folding = false;
-	}
-	
-	public int getCash(){
-		return cash;
-	}
-	
-	public Hand getHand(){
-		return hand;
-	}
-	
-	public void changeCash(int difference){
-		cash += difference;
-		if (cash < 0){
-			speak("is out of money!");
-			folding = true;
-		}
-	}
 	
 	public int getAnte(int past){
 		Scanner in = new Scanner(System.in);
@@ -53,10 +22,6 @@ public class Human implements Player {
 				return 0;
 			}
 		}
-		
-		
-			
-		
 	}
 	
 	public int getBid(int past){
@@ -71,11 +36,4 @@ public class Human implements Player {
 		return bid;
 	}
 	
-	public boolean isFolding(){
-		return folding;
-	}
-	
-	public void speak(String phrase){
-		System.out.println(getName() + " " + phrase);
-	}
 }
