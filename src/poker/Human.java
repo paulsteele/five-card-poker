@@ -30,6 +30,10 @@ public class Human implements Player {
 	
 	public void changeCash(int difference){
 		cash += difference;
+		if (cash < 0){
+			speak("is out of money!");
+			folding = true;
+		}
 	}
 	
 	public int getAnte(int past){
@@ -40,12 +44,12 @@ public class Human implements Player {
 		switch (input.toLowerCase()){
 			case "y": {
 				changeCash(-5); 
-				System.out.println(getName() + " puts $5 forward as ante.");
+				speak("puts $5 forward as ante.");
 				return 5;
 			}
 			default: {
 				folding = true;
-				System.out.println(getName() + " folds");
+				speak("folds");
 				return 0;
 			}
 		}
@@ -69,5 +73,9 @@ public class Human implements Player {
 	
 	public boolean isFolding(){
 		return folding;
+	}
+	
+	public void speak(String phrase){
+		System.out.println(getName() + " " + phrase);
 	}
 }

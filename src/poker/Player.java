@@ -10,4 +10,5 @@ public interface Player {
 	public int getAnte(int past);
 	public int getBid(int past);
 	public boolean isFolding();
+	public void speak(String phrase);
 }

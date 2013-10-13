@@ -39,19 +39,23 @@ public class AI implements Player{
 	
 	public void changeCash(int difference){
 		cash += difference;
+		if (cash < 0){
+			speak("is out of money!");
+			folding = true;
+		}
 	}
 	
 	public int getAnte(int past){
 		Poker.sleep(500);
 		int ret;
 		if (getCash() > 5){
-			System.out.println(getName() + " puts $5 forward as ante.");
+			speak("puts $5 forward as ante.");
 			changeCash(-5);
 			ret = 5;
 		}
 		else {
 			folding = true;
-			System.out.println(getName() + " folds");
+			speak("folds");
 			ret = 0;
 		}
 		
@@ -65,12 +69,16 @@ public class AI implements Player{
 		while (bid < past)
 			bid = rand.nextInt(getCash() / 3); //bids up to maximum of 1/10 of current cash
 		
-		System.out.println(getName() + " bids " + bid);
+		speak("bids " + bid);
 		Poker.sleep(1500);
 		return bid;
 	}
 	
 	public boolean isFolding(){
 		return folding;
+	}
+	
+	public void speak(String phrase){
+		System.out.println(getName() + " " + phrase);
 	}
 }
