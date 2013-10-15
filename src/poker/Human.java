@@ -36,4 +36,12 @@ public class Human extends Player {
 		return bid;
 	}
 	
+	public void showHand(){
+		System.out.println(getName() + "'s cards are");
+		for (int i = 0; i < getHand().length(); i++){
+			System.out.print( (i+1) + ": " );
+			getHand().getCard(i).display();
+		}
+	}
+	
 }

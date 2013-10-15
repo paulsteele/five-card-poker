@@ -106,6 +106,10 @@ public class Poker {
 			pot += players[i].getAnte(5);
 		}
 		//player sees cards
+		for (int i = 1; i < PLAYERS+1; i++){
+			players[i].showHand();
+		}
+		
 		//betting round
 		//players specify what cards they are handing in
 		//give cards to the player
@@ -195,4 +199,5 @@ public class Poker {
 			}
 		
 	}
+	
 }

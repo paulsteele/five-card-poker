@@ -45,10 +45,16 @@ public class Player {
 		return -500;
 		//NEEDS TO BE OVERWRITTEN
 	}
+	public void showHand(){
+		//NEEDS TO BE OVERWRITTEN
+	}
+	
 	public boolean isFolding(){
 		return folding;
 	}
+	
 	public void speak(String phrase){
 		System.out.println(getName() + " " + phrase);
 	}
+	
 }

@@ -63,4 +63,12 @@ public class Hand{
 		temp[hand.length] = card;
 		hand = temp;
 	}
+	
+	public int length() {
+		return hand.length;
+	}
+	
+	public void sort() {
+		//this method will make scoring easy cards of same suit placed next to each other in order
+	}
 }
