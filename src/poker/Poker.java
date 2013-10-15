@@ -105,6 +105,12 @@ public class Poker {
 		for (int i = 1; i < PLAYERS + 1; i++){
 			pot += players[i].getAnte(5);
 		}
+		//player sees cards
+		//betting round
+		//players specify what cards they are handing in
+		//give cards to the player
+		//betting round
+		//endgame
 		
 	}
 	/**

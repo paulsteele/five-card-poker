@@ -35,6 +35,8 @@ public class Player {
 		}
 	}
 	
+	
+	
 	public int getAnte(int past){
 		return -500;
 		//NEEDS TO BE OVERWRITTEN
