@@ -69,6 +69,39 @@ public class Hand{
 	}
 	
 	public void sort() {
-		//this method will make scoring easy cards of same suit placed next to each other in order
+		for (int j = 0; j < length() -1; j++){
+			for(int i = 0; i < length()-1; i++){
+				//fixes suit values
+				if (getCard(i).getSuit() > getCard(i+1).getSuit()){
+					Card swap = getCard(i);
+					hand[i] = getCard(i+1);
+					hand[i+1] = swap;
+				}
+				else {
+					//fixes number values
+					if (getCard(i).getSuit() == getCard(i+1).getSuit()){
+						//ace fix
+						if (getCard(i).getNumber() == 0){
+							Card swap = getCard(i);
+							hand[i] = getCard(i+1);
+							hand[i+1] = swap;
+						}
+						else {
+							if (getCard(i+1).getNumber() == 0){
+								//no change
+							}
+							else{
+								if (getCard(i).getNumber() > getCard(i+1).getNumber()){
+									Card swap = getCard(i);
+									hand[i] = getCard(i+1);
+									hand[i+1] = swap;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
+	
 }
