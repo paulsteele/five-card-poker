@@ -179,12 +179,53 @@ public class Hand{
 		return false;
 	}
 	
-	private boolean checkFullHouse(){
-		return false;
+	public boolean checkFullHouse(){
+		int[] counter = new int[13];
+		boolean first = false;
+		boolean secound = false;
+		
+		for (int i = 0; i < hand.length; i++){
+			counter[hand[i].getNumber()] +=1;
+		}
+		
+		for (int i = 0; i < counter.length; i++){
+			if (counter[i] > 2 && !first){
+				lead = i;
+				first = true;
+			}
+			else if (counter[i] > 1){
+				secound = true;
+			}
+		} 
+		
+		return first && secound;
+		
 	}
 	
-	private boolean checkFlush(){
+	public boolean checkFlush(){
+		int[] counter = new int[4];
+		
+		for (int i = 0; i < hand.length; i++){
+			counter[hand[i].getSuit()] +=1;
+		}
+		
+		for (int i = 0; i < counter.length; i++){
+			if (counter[i] > 4){
+				
+				int special = hand[0].getNumber();
+				for (int j = 0; j < hand.length; j++){
+					//go through the special hand
+					if (hand[j].getNumber() == 0 && special != 0 && hand[j].getNumber() > special){
+						special = hand[j].getNumber();
+					}
+				}
+				lead = special;
+				return true;
+			}
+		}
+		
 		return false;
+		
 	}
 	
 	private boolean checkStraight(){
