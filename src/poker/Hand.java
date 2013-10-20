@@ -20,6 +20,7 @@ public class Hand{
 	public Hand(){
 		hand = new Card[0]; //empty card array
 		rescore(); //checks the score of this hand
+		lead = -1;
 	}
 	
 	/**
@@ -135,11 +136,46 @@ public class Hand{
 		return false;
 	}
 	
-	private boolean checkStraightFlush(){
+	public boolean checkStraightFlush(){
+		for (int i =0; i < 3; i++){
+			if (hand[i].getSuit() == hand[i+1].getSuit() && 
+					hand[i].getSuit() == hand[i+2].getSuit() && 
+					hand[i].getSuit() == hand[i+3].getSuit() &&
+					hand[i].getSuit() == hand[i+4].getSuit()) {
+				//low ace fix
+				if (hand[i].getNumber() == 0 && 
+						hand[i+1].getNumber() == 4 && 
+						hand[i+2].getNumber() == 3 && 
+						hand[i+3].getNumber() == 2 &&
+						hand[i+4].getNumber() == 1) {
+					lead = 4;
+					return true;
+					}
+				//all in same suit
+				if (hand[i+1].getNumber() == hand[i].getNumber() - 1 && 
+						hand[i+2].getNumber() == hand[i].getNumber() - 2 && 
+						hand[i+3].getNumber() == hand[i].getNumber() - 3 &&
+						hand[i+4].getNumber() == hand[i].getNumber() - 4) {
+					lead = hand[i].getNumber();
+					return true;
+					}
+			}
+		}
 		return false;
 	}
 	
-	private boolean checkFourOfKind(){
+	public boolean checkFourOfKind(){
+		int[] counter = new int[13];
+		for (int i = 0; i < hand.length; i++){
+			counter[hand[i].getNumber()] +=1;
+		}
+		
+		for (int i = 0; i < counter.length; i++){
+			if (counter[i] == 4){
+				lead = i;
+				return true;
+			}
+		}
 		return false;
 	}
 	
@@ -165,6 +201,18 @@ public class Hand{
 	
 	private boolean checkOnePair(){
 		return false;
+	}
+	
+	public static Hand combine(Hand one, Hand two){
+		Hand ret = new Hand();
+		for (int i = 0; i < one.length(); i++){
+			ret.add(one.getCard(i));
+		}
+		for (int i = 0; i < two.length(); i++){
+			ret.add(two.getCard(i));
+		}
+		ret.sort();
+		return ret;
 	}
 	
 }
