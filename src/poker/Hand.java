@@ -10,6 +10,7 @@ package poker;
 public class Hand{
 	private Card[] hand; //an array of cards in the hand
 	private int score; //score of the hand
+	private int lead; //the leading card when determining winner
 	
 	/**
 	 * Constructor
@@ -81,17 +82,17 @@ public class Hand{
 					//fixes number values
 					if (getCard(i).getSuit() == getCard(i+1).getSuit()){
 						//ace fix
-						if (getCard(i).getNumber() == 0){
+						if (getCard(i+1).getNumber() == 0){
 							Card swap = getCard(i);
 							hand[i] = getCard(i+1);
 							hand[i+1] = swap;
 						}
 						else {
-							if (getCard(i+1).getNumber() == 0){
+							if (getCard(i).getNumber() == 0){
 								//no change
 							}
 							else{
-								if (getCard(i).getNumber() > getCard(i+1).getNumber()){
+								if (getCard(i).getNumber() < getCard(i+1).getNumber()){
 									Card swap = getCard(i);
 									hand[i] = getCard(i+1);
 									hand[i+1] = swap;
@@ -102,6 +103,68 @@ public class Hand{
 				}
 			}
 		}
+	}
+	
+	/**
+	 * getLead()
+	 * 
+	 * returns the leading value in non human readable format
+	 * @return leadingnumber
+	 */
+	public int getLead(){
+		return lead;
+	}
+	
+	public boolean checkRoyalFlush(){
+		for (int i = 0; i < 3; i++){//only does process for first three cards in collective hand
+			if (hand[i].getSuit() == hand[i+1].getSuit() && 
+					hand[i].getSuit() == hand[i+2].getSuit() && 
+					hand[i].getSuit() == hand[i+3].getSuit() &&
+					hand[i].getSuit() == hand[i+4].getSuit()) {
+				//if all the suits are the same
+				if (hand[i].getNumber() == 0 && 
+						hand[i+1].getNumber() == 12 && 
+						hand[i+2].getNumber() == 11 && 
+						hand[i+3].getNumber() == 10 &&
+						hand[i+4].getNumber() == 9) {
+					return true;
+					}
+			}	
+		}
+		//not a royal flush
+		return false;
+	}
+	
+	private boolean checkStraightFlush(){
+		return false;
+	}
+	
+	private boolean checkFourOfKind(){
+		return false;
+	}
+	
+	private boolean checkFullHouse(){
+		return false;
+	}
+	
+	private boolean checkFlush(){
+		return false;
+	}
+	
+	private boolean checkStraight(){
+		return false;
+	}
+	
+	private boolean checkThreeofKind(){
+		return false;
+	}
+	
+	private boolean checkTwoPair(){
+		return false;
+	}
+	
+	private boolean checkOnePair(){
+		return false;
 	}
 	
 }

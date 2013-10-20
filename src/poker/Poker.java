@@ -16,6 +16,7 @@ public class Poker {
 	private Player[] players;
 	private final int STARTING_CASH = 500;
 	private Deck deck; //the deck of the game
+	private Hand community; //the community cards
 	private static final int CLEARSCREEN_AMOUNT = 100; //number of lines to clear screen with 
 	private static final String TEXTLINE = "------------------"; //dashes that appended to menus
 	private int bid; //the highest bid
@@ -51,6 +52,7 @@ public class Poker {
 				players[i].setName("Human " + i);
 		}
 		currentPlayer = 1;
+		community = new Hand();
 	}
 	
 	/**
@@ -95,27 +97,6 @@ public class Poker {
 			players[i].setHand(new Hand());
 		}
 		
-		//this part fills each players hand with cards
-		for (int i =0; i < 5; i++){
-			for (int j = 1; j < PLAYERS+1; j++){
-				players[j].getHand().add(deck.draw());
-			}
-		}
-		
-		for (int i = 1; i < PLAYERS + 1; i++){
-			pot += players[i].getAnte(5);
-		}
-		//player sees cards
-		for (int i = 1; i < PLAYERS+1; i++){
-			players[i].showHand();
-		}
-		
-		//betting round
-		
-		//players specify what cards they are handing in
-		//give cards to the player
-		//betting round
-		//endgame
 		
 	}
 	/**

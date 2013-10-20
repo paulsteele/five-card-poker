@@ -11,8 +11,6 @@ package poker;
 public class Card {
 	private int number; //the value of the card
 	private int suit; //the suit of the card
-	private int worth; //the arbitrary worth 
-	
 	
 	/**
 	 * Card Constructor
@@ -99,12 +97,5 @@ public class Card {
 	public void display(){
 		System.out.println(getValue() + " of " + getSuitChar());
 	}
-	
-	public void setWorth(int worth){
-		this.worth = worth;
-	}
-	
-	public int getWorth(){
-		return worth;
-	}
 }
+	
