@@ -228,7 +228,26 @@ public class Hand{
 		
 	}
 	
-	private boolean checkStraight(){
+	public boolean checkStraight(){
+		int[] counter = new int[13];
+		
+		for (int i = 0; i < hand.length; i++){
+			counter[hand[i].getNumber()] +=1;
+		}
+		//check for royal straight
+		if (counter[0] > 0 && counter[13] > 0 && counter[12] > 0 && counter[11] > 0 && counter[10] > 0 ){
+			lead = 0;
+			return true;
+		}
+		
+		//normal check
+		for (int i = 0; i < counter.length - 4;i++){
+			if (counter[i] > 0 && counter[i+1] > 0 && counter[i+2] > 0 && counter[i+3] > 0 && counter[i+4] > 0 ){
+				lead = i+4;
+				return true;
+			}
+		}
+		
 		return false;
 	}
 	
