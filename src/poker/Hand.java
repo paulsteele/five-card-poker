@@ -235,7 +235,7 @@ public class Hand{
 			counter[hand[i].getNumber()] +=1;
 		}
 		//check for royal straight
-		if (counter[0] > 0 && counter[13] > 0 && counter[12] > 0 && counter[11] > 0 && counter[10] > 0 ){
+		if (counter[0] > 0 && counter[12] > 0 && counter[11] > 0 && counter[10] > 0 && counter[9] > 0 ){
 			lead = 0;
 			return true;
 		}
