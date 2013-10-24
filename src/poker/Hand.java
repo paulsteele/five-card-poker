@@ -19,7 +19,6 @@ public class Hand{
 	 */
 	public Hand(){
 		hand = new Card[0]; //empty card array
-		rescore(); //checks the score of this hand
 		lead = -1;
 	}
 	
@@ -31,8 +30,42 @@ public class Hand{
 	 * @return int
 	 */
 	public int rescore(){
-		//right now simply return 0
-		score = 0;
+		
+		//super massive conditional
+		
+		try {
+		if (checkRoyalFlush())
+			score = 10;
+		else
+			if (checkStraightFlush())
+				score = 9;
+			else
+				if (checkFourOfKind())
+					score = 8;
+				else
+					if (checkFullHouse())
+						score = 7;
+					else
+						if (checkFlush())
+							score = 6;
+						else
+							if (checkStraight())
+								score = 5;
+							else
+								if (checkThreeOfKind())
+									score = 4;
+								else
+									if (checkTwoPair())
+										score = 3;
+									else
+										if (checkOnePair())
+											score = 2;
+										else
+											score = 1;
+		}
+		catch (ArrayIndexOutOfBoundsException e){
+			System.out.println("CANNOT RESCORE A HAND OF FIVE. MUST BE SEVEN");
+		}
 		return score;
 		
 	}

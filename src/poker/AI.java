@@ -13,13 +13,19 @@ public class AI extends Player{
 	
 	private Random rand = new Random();
 	
-	public int getAnte(int past){
+	public int getBlind(boolean big){
 		Poker.sleep(500);
 		int ret;
-		if (getCash() > 5){
-			speak("puts $5 forward as ante.");
-			changeCash(-5);
-			ret = 5;
+		int blind;
+		if (big)
+			blind = Poker.BIG_BLIND;
+		else
+			blind = Poker.BIG_BLIND / 2;
+		if (getCash() > blind){
+			speak("puts $" + blind + " forward as blind.");
+			changeCash(-blind);
+			currentBid = blind;
+			ret = blind;
 		}
 		else {
 			folding = true;

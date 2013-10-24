@@ -5,6 +5,7 @@ public class Player {
 	protected boolean folding;
 	protected int cash;
 	protected Hand hand;
+	protected int currentBid;
 	
 	public String getName(){
 		return name;
@@ -37,7 +38,7 @@ public class Player {
 	
 	
 	
-	public int getAnte(int past){
+	public int getBlind(boolean big){
 		return -500;
 		//NEEDS TO BE OVERWRITTEN
 	}
@@ -57,4 +58,11 @@ public class Player {
 		System.out.println(getName() + " " + phrase);
 	}
 	
+	public int getCurrentBid(){
+		return currentBid;
+	}
+	
+	public void setCurrentBid(int bid){
+		currentBid = bid;
+	}
 }

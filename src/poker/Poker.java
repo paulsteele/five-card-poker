@@ -21,6 +21,8 @@ public class Poker {
 	private static final String TEXTLINE = "------------------"; //dashes that appended to menus
 	private int bid; //the highest bid
 	private int pot; //what's in the pot
+	private int dealer;
+	public static final int BIG_BLIND = 10; //the big blind
 	/**
 	 * main()
 	 * 
@@ -29,8 +31,12 @@ public class Poker {
 	 */
 	public static void main(String[] args) {//Actual game runtime
 		Scanner in = new Scanner(System.in);
-		Poker.callMenu(in);
+		boolean play = Poker.callMenu(in);
 		in.close();
+		Poker game = new Poker(5);
+		if (play)
+			game.run();
+			
 	}
 	/**
 	 * Constructor
@@ -53,6 +59,7 @@ public class Poker {
 		}
 		currentPlayer = 1;
 		community = new Hand();
+		dealer = 1;
 	}
 	
 	/**
@@ -87,8 +94,13 @@ public class Poker {
 	 * 
 	 */
 	public void run(){
+		int temp; //this number is used when temporary values need to be sent to two different functions
 		Poker.clearScreen();
-		deck = new Deck();//
+		deck = new Deck();
+		for (int i = 0; i < 20; i++){
+			deck.shuffle();
+		}
+		
 		pot = 0;
 		bid = 0;
 		deck.shuffle();//start off by shuffling
@@ -96,6 +108,23 @@ public class Poker {
 		for (int i = 1; i < PLAYERS + 1; i++){
 			players[i].setHand(new Hand());
 		}
+		
+		//deal each player 2 cards
+		for (int i = 1; i < PLAYERS +1; i++){
+			players[i].getHand().add(deck.draw());
+			players[i].getHand().add(deck.draw());
+		}
+		
+		//big blind left of dealer
+		temp = players[getBlinders()[0]].getBlind(true);
+		pot += temp;
+		bid = temp;
+		//small blind right of dealer
+		temp = players[getBlinders()[1]].getBlind(false);
+		pot += temp;
+		
+		
+		
 		
 		
 	}
@@ -180,6 +209,19 @@ public class Poker {
 				e.printStackTrace();
 			}
 		
+	}
+	
+	private int[] getBlinders(){
+		int[] ret = new int[2];
+		int big = dealer - 1;
+		if (big == 0)
+			big = PLAYERS;
+		int small = dealer +1;
+		if (dealer == PLAYERS)
+			small = 1;
+		ret[0] = big;
+		ret[1] = small;
+		return ret;
 	}
 	
 }
