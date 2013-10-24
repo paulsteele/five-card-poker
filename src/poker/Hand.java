@@ -251,15 +251,60 @@ public class Hand{
 		return false;
 	}
 	
-	private boolean checkThreeofKind(){
+	public boolean checkThreeOfKind(){
+		int[] counter = new int[13];
+		
+		for (int i = 0; i < hand.length; i++){
+			counter[hand[i].getNumber()] +=1;
+		}
+		
+		for (int i = 0; i < hand.length; i++){
+			if (counter[i] >2){
+				lead = i;
+				return true;
+			}
+		}
 		return false;
 	}
 	
-	private boolean checkTwoPair(){
+	public boolean checkTwoPair(){
+		int[] counter = new int[13];
+		int numofpairs = 0;
+		for (int i = 0; i < hand.length; i++){
+			counter[hand[i].getNumber()] +=1;
+		}
+		
+		for (int i = 0; i < hand.length; i++){
+			if (counter[i] >1){
+				if (lead != -1){
+					lead = i;
+				}
+				numofpairs+=1;
+				
+			}
+		}
+		if (numofpairs == 2){
+			return true;
+		}
 		return false;
 	}
 	
-	private boolean checkOnePair(){
+	public boolean checkOnePair(){
+		int[] counter = new int[13];
+		int numofpairs = 0;
+		for (int i = 0; i < hand.length; i++){
+			counter[hand[i].getNumber()] +=1;
+		}
+		
+		for (int i = 0; i < hand.length; i++){
+			if (counter[i] >1){
+				lead = i;
+				numofpairs+=1;
+			}
+		}
+		if (numofpairs == 1){
+			return true;
+		}
 		return false;
 	}
 	
