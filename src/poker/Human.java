@@ -6,29 +6,29 @@ public class Human extends Player {
 	
 	
 	public int getBlind(boolean big){
-		Scanner in = new Scanner(System.in);
-		System.out.println("Play this round? (y/n)");
-		String input = in.next();
-		in.close();
+		//Scanner in = new Scanner(System.in);
+		//System.out.println("Play this round? (y/n)");
+		//String input = in.next();
+		//in.close();
 		int blind;
 		if (big)
 			blind = Poker.BIG_BLIND;
 		else
 			blind = Poker.BIG_BLIND / 2;
-		switch (input.toLowerCase()){
-			case "y": {
+		//switch (input.toLowerCase()){
+		//	case "y": {
 				changeCash(-blind); 
 				speak("puts $" + blind + " forward as blind.");
 				currentBid = blind;
-				return 5;
-			}
-			default: {
-				folding = true;
-				speak("folds");
-				return 0;
-			}
-		}
+				return blind;
+		//	}
+		//	default: {
+		//		folding = true;
+		//		speak("folds");
+		//		return 0;
+		//	}
 	}
+	
 	
 	public int getBid(int past){
 		Scanner in = new Scanner(System.in);

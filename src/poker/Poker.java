@@ -114,7 +114,7 @@ public class Poker {
 			players[i].getHand().add(deck.draw());
 			players[i].getHand().add(deck.draw());
 		}
-		
+		//Say that the dealer deals
 		//big blind left of dealer
 		temp = players[getBlinders()[0]].getBlind(true);
 		pot += temp;
