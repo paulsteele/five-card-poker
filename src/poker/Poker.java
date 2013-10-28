@@ -32,7 +32,6 @@ public class Poker {
 	public static void main(String[] args) {//Actual game runtime
 		Scanner in = new Scanner(System.in);
 		boolean play = Poker.callMenu(in);
-		in.close();
 		Poker game = new Poker(5);
 		if (play)
 			game.run();
@@ -127,6 +126,11 @@ public class Poker {
 		//small blind right of dealer
 		temp = players[getBlinders()[1]].getBlind(false);
 		pot += temp;
+		
+		//round of bidding
+		beginBid();
+		System.out.println(bid);
+		System.out.println(pot);
 		
 		
 		
@@ -231,8 +235,19 @@ public class Poker {
 	
 	private void beginBid(){
 		boolean done = false;
-				
+		int temp;
+		
 		while (!done){
+			//gets players' bids
+			for (int i = 1; i < PLAYERS +1; i++){
+				if (!players[i].meetingBid(bid)) {
+					temp = players[i].getBid(bid);
+					pot += temp;
+					if (temp > bid){
+						bid = temp;
+					}
+				}
+			}		
 			done = true;
 			//checks to see if all players have called
 			for (int i = 1; i < PLAYERS + 1; i++){
