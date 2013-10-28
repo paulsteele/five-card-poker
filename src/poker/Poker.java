@@ -115,6 +115,11 @@ public class Poker {
 			players[i].getHand().add(deck.draw());
 		}
 		//Say that the dealer deals
+		players[dealer].speak("deals two cards to each player");
+		//Clear each players current bid
+		for (int i = 1; i < PLAYERS + 1;i++){
+			players[i].setCurrentBid(0);
+		}
 		//big blind left of dealer
 		temp = players[getBlinders()[0]].getBlind(true);
 		pot += temp;
@@ -222,6 +227,21 @@ public class Poker {
 		ret[0] = big;
 		ret[1] = small;
 		return ret;
+	}
+	
+	private void beginBid(){
+		boolean done = false;
+				
+		while (!done){
+			done = true;
+			//checks to see if all players have called
+			for (int i = 1; i < PLAYERS + 1; i++){
+				if (players[i].meetingBid(bid) != true)
+					done = false;
+			}
+			
+			
+		}
 	}
 	
 }

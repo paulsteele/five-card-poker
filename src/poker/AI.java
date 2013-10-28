@@ -39,13 +39,19 @@ public class AI extends Player{
 	
 	public int getBid(int past){
 		Poker.sleep(500);
-		int bid = 0;
-		while (bid < past)
-			bid = rand.nextInt(getCash() / 3); //bids up to maximum of 1/10 of current cash
+		//int bid = 0;
+		//while (bid < past)
+		//	bid = rand.nextInt(getCash() / 3); //bids up to maximum of 1/10 of current cash
 		
-		speak("bids " + bid);
-		Poker.sleep(1500);
-		return bid;
+		//speak("bids " + bid);
+		Poker.sleep(750);
+		speak("calls the bid");
+		int howmuch = past - currentBid;
+		changeCash(-howmuch);
+		currentBid += howmuch;
+		Poker.sleep(750);
+		return howmuch;
+		
 	}
 	
 	

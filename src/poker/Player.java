@@ -65,4 +65,8 @@ public class Player {
 	public void setCurrentBid(int bid){
 		currentBid = bid;
 	}
+	
+	public boolean meetingBid(int bid){
+		return (bid == currentBid);
+	}
 }
