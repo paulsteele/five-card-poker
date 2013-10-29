@@ -1,6 +1,6 @@
 Fall Term Full Project #1
 
-A Texas hold em terminal based game
+A Texas hold em GUI!!!
 
 This is no longer five card draw, this might as well by legit
 
@@ -8,3 +8,4 @@ This will be the first Full Project that I do for fall semester.
 
 It supports essentially unlimited number of players(1 human, the rest AI). This isn't really practical as a deck only has so many cards but the code supports it. A hard cap will be established at some point.
 
+This is now going to be a GUI application. Might as well implement it before too much work is done on it

@@ -1,7 +1,9 @@
 package poker;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.util.Scanner;
-
+import javax.swing.*;
 /**
  * Poker
  * 
@@ -30,12 +32,34 @@ public class Poker {
 	 * @param args
 	 */
 	public static void main(String[] args) {//Actual game runtime
-		Scanner in = new Scanner(System.in);
+		/*Scanner in = new Scanner(System.in);
 		boolean play = Poker.callMenu(in);
 		Poker game = new Poker(5);
 		if (play)
 			game.run();
-			
+			*/
+		//create main window
+		JFrame window = new JFrame("Texas Hold 'em");
+		window.setSize(640, 480);
+		window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		JPanel full = new JPanel();
+		full.setLayout(new BoxLayout(full, BoxLayout.Y_AXIS));
+		//create Widgets
+		JPanel interaction = new JPanel();
+		interaction.setSize(192, 192);
+		interaction.setBackground(Color.green);
+		JPanel term = new JPanel();
+		term.setSize(448, 192);
+		term.setBackground(Color.red);
+		//add panels to main window
+		
+		
+		window.add(full);
+		
+		//display window
+		window.setResizable(false);
+		window.setVisible(true);
+		
 	}
 	/**
 	 * Constructor
