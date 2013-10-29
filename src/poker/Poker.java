@@ -129,8 +129,12 @@ public class Poker {
 		
 		//round of bidding
 		beginBid();
-		System.out.println(bid);
-		System.out.println(pot);
+		//place 3 cards in community card
+		for (int i = 0; i < 3; i++){
+			Card tempCard = deck.draw();
+			community.add(tempCard);
+			players[dealer].speak("deals the " + tempCard.toString() + " to the flop");
+		}
 		
 		
 		

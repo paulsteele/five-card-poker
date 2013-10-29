@@ -97,5 +97,9 @@ public class Card {
 	public void display(){
 		System.out.println(getValue() + " of " + getSuitChar());
 	}
+	
+	public String toString(){
+		return getValue() + " of " + getSuitChar();
+	}
 }
 	
