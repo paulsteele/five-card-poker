@@ -10,7 +10,7 @@ import java.util.Scanner;
  *
  */
 public class Poker {
-	private final int PLAYERS;
+	public final int PLAYERS;
 	private int currentPlayer; //contains who the current player is
 	private Player[] players;
 	private final int STARTING_CASH = 500;
@@ -29,13 +29,9 @@ public class Poker {
 	 * @param args
 	 */
 	public static void main(String[] args) {//Actual game runtime
-		/*Scanner in = new Scanner(System.in);
-		boolean play = Poker.callMenu(in);
 		Poker game = new Poker(5);
-		if (play)
-			game.run();
-			*/
-		Window window = new Window();
+		Window window = new Window(game);
+		window.redrawScore();
 		
 	}
 	/**
