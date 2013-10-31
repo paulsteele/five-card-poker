@@ -3,12 +3,19 @@ package poker;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.swing.BoxLayout;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class Window {
 
+	JTextArea community;
+	JTextArea score;
+	JTextArea playcards;
+	JTextArea terminal;
+	JTextField bidfield;
+	JButton bid;
+	JButton call;
+	JButton fold;
+	
 	
 	public Window() {
 		//create main window
@@ -25,40 +32,55 @@ public class Window {
 				JPanel interaction = new JPanel();
 				interaction.setMaximumSize(new Dimension(192, 192));
 				interaction.setBackground(Color.green);
-				
-				JPanel term = new JPanel();
-				term.setMaximumSize(new Dimension(448, 192));
-				term.setBackground(Color.red);
+				interaction.setLayout(new BoxLayout(interaction, BoxLayout.Y_AXIS));
 				
 				JPanel middle = new JPanel();
 				middle.setSize(640,144);
 				middle.setLayout(new BoxLayout(middle, BoxLayout.X_AXIS));
-				
-				JPanel playercards =new JPanel();
-				playercards.setMaximumSize(new Dimension (448, 144));
-				playercards.setMinimumSize(new Dimension (448, 144));
-				playercards.setBackground(Color.BLUE);
 				
 				JPanel empty = new JPanel();
 				empty.setMaximumSize(new Dimension (192, 144));
 				JPanel top  = new JPanel();
 				top.setSize(640, 144);
 				top.setLayout(new BoxLayout(top,BoxLayout.X_AXIS));
+							
+				//initialize the text areas
+				community = new JTextArea();
+				community.setMaximumSize(new Dimension(448, 144));
+				community.setLineWrap(true);
+				//community.setEditable(false);
+				community.setBorder(BorderFactory.createLineBorder(Color.black, 5));
+				score = new JTextArea();
+				score.setMaximumSize(new Dimension(192,144));
+				score.setLineWrap(true);
+				//score.setEditable(false);
+				score.setBorder(BorderFactory.createLineBorder(Color.black, 5));
+				playcards = new JTextArea(); 
+				playcards.setMaximumSize(new Dimension (448, 144));
+				playcards.setLineWrap(true);
+				//playcards.setEditable(false);
+				playcards.setBorder(BorderFactory.createLineBorder(Color.black, 5));
+				terminal = new JTextArea();
+				terminal.setMaximumSize(new Dimension(448, 192));
+				terminal.setLineWrap(true);
+				//terminal.setEditable(false);
+				terminal.setBorder(BorderFactory.createLineBorder(Color.black, 5));
+				bidfield = new JTextField();
+				bidfield.setMaximumSize(new Dimension(192,32));
+				bid = new JButton("Bid");
+				call = new JButton("Call");
+				fold = new JButton("Fold");
 				
-				JPanel communitycards = new JPanel();
-				communitycards.setMaximumSize(new Dimension(448, 144));
-				communitycards.setBackground(Color.cyan);
-				
-				JPanel cashlist = new JPanel();
-				cashlist.setMaximumSize(new Dimension(192,144));
-				cashlist.setBackground(Color.magenta);
 				//add widgets to panels
-				//add sub panels to panels
-				top.add(communitycards);
-				top.add(cashlist);
-				middle.add(playercards);
+				interaction.add(bidfield);
+				interaction.add(bid);
+				interaction.add(call);
+				interaction.add(fold);
+				top.add(community);
+				top.add(score);
+				middle.add(playcards);
 				middle.add(empty);
-				bottom.add(term);
+				bottom.add(terminal);
 				bottom.add(interaction);
 				//add panels to main panel
 				full.add(top);
