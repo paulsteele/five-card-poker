@@ -1,7 +1,5 @@
 package poker;
 
-import java.util.Scanner;
-
 public class Human extends Player {
 	
 	
@@ -19,15 +17,21 @@ public class Human extends Player {
 	
 	
 	public int getBid(int past){
-		Scanner in = new Scanner(System.in);
 		int bid = 0;
 		while (bid < past){
-			System.out.print("Please enter your bid");
-			System.out.print("You need to bid " + (past - currentBid) + " in order to call");
-			bid = in.nextInt();
-			System.out.println("");
+			window.print("Please enter your bid");
+			window.print("You need to bid " + (past - currentBid) + " in order to call");
+			Poker.setLock(this);
+			synchronized (Poker.getLock()){
+				try {
+					wait();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			window.print("WINSAUCE");
 		}
-		in.close();
 		changeCash(-bid);
 		currentBid += bid;
 		return bid;

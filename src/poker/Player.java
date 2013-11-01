@@ -6,6 +6,7 @@ public class Player {
 	protected int cash;
 	protected Hand hand;
 	protected int currentBid;
+	protected Window window;
 	
 	public String getName(){
 		return name;
@@ -55,7 +56,7 @@ public class Player {
 	}
 	
 	public void speak(String phrase){
-		System.out.println(getName() + " " + phrase);
+		window.print(getName() + " " + phrase);
 	}
 	
 	public int getCurrentBid(){
@@ -68,5 +69,9 @@ public class Player {
 	
 	public boolean meetingBid(int bid){
 		return (bid == currentBid);
+	}
+	
+	public void setWindow(Window window){
+		this.window = window;
 	}
 }

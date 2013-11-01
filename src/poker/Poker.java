@@ -1,6 +1,5 @@
 package poker;
 
-import java.util.Scanner;
 /**
  * Poker
  * 
@@ -9,19 +8,18 @@ import java.util.Scanner;
  * @author Paul Steele
  *
  */
-public class Poker {
+public class Poker implements Runnable{
 	public final int PLAYERS;
 	private int currentPlayer; //contains who the current player is
 	private Player[] players;
 	private final int STARTING_CASH = 500;
 	private Deck deck; //the deck of the game
 	private Hand community; //the community cards
-	private static final int CLEARSCREEN_AMOUNT = 100; //number of lines to clear screen with 
-	private static final String TEXTLINE = "------------------"; //dashes that appended to menus
 	private int bid; //the highest bid
 	private int pot; //what's in the pot
 	private int dealer;
 	public static final int BIG_BLIND = 10; //the big blind
+	private static Object lock;
 	/**
 	 * main()
 	 * 
@@ -31,6 +29,7 @@ public class Poker {
 	public static void main(String[] args) {//Actual game runtime
 		Poker game = new Poker(5);
 		Window window = new Window(game);
+		game.passWindow(window);
 		window.redrawScore();
 		
 	}
@@ -91,7 +90,6 @@ public class Poker {
 	 */
 	public void run(){
 		int temp; //this number is used when temporary values need to be sent to two different functions
-		Poker.clearScreen();
 		deck = new Deck();
 		for (int i = 0; i < 20; i++){
 			deck.shuffle();
@@ -138,73 +136,8 @@ public class Poker {
 		
 		
 	}
-	/**
-	 * callMenu()
-	 * 
-	 * calls up a menu
-	 * 
-	 * @return true if a game is to be played
-	 *
-	 */
-	public static boolean callMenu(Scanner in){
-		clearScreen();//clears screen for use
-		System.out.println(TEXTLINE + "Welcome to Five Card Poker" + TEXTLINE);
-		System.out.println("\nPlease Select an option");
-		System.out.println("");
-		System.out.println("1). Play a game");
-		System.out.println("2). How to play");
-		System.out.println("3). About");
-		System.out.println("4). Exit");
-		String holder = in.next();
-		switch (holder){
-		case "1":{
-			return true;
-		}
-		case "2":{
-			System.out.println("Poker is a really fun game, try it sometime");
-			System.out.println("Dont't worry I'll add more to this later");
-			System.out.println("");
-			System.out.println("Press return to go back to menu");
-			in.nextLine();
-			in.nextLine();
-			return callMenu(in); //recurses and calls the menu again
-		}
-		case "3":{
-			System.out.println("This project was coded in Java using the Eclipse IDE");
-			System.out.println("Coded by Paul Steele as a Semester Project");
-			System.out.println("Work began the 8th week of class");
-			System.out.println("");
-			System.out.println("Press return to go back to menu");
-			in.nextLine();
-			in.nextLine();
-			return callMenu(in);
-		}
-		case "4":{
-			//immediate Exit
-			return false;
-		}
-		default:{
-			System.out.println("That is not a valid option");
-			System.out.println("");
-			System.out.println("Press return to go back to menu");
-			in.nextLine();
-			in.nextLine();
-			return callMenu(in);
-		}
-			
-		}
-	}
+
 	
-	/**
-	 * clearScreen()
-	 * 
-	 * utility class to clear the screen
-	 */
-	private static void clearScreen(){
-		for (int i = 0 ; i < CLEARSCREEN_AMOUNT; i++){
-			System.out.println("");
-		}
-	}
 	
 	public Player getPlayer(int play){
 		return players[play];
@@ -260,4 +193,24 @@ public class Poker {
 		}
 	}
 	
+	public int getPot() {
+		return pot;
+	}
+	
+	/**
+	 * passes the game window to various parts of the program
+	 * @param window
+	 */
+	public void passWindow(Window window){
+		for (int i = 1; i < PLAYERS + 1; i++){
+			players[i].setWindow(window);
+			players[i].speak("I'm alive");
+		}
+	}
+	public static Object getLock() {
+		return lock;
+	}
+	public static void setLock(Object lock) {
+		Poker.lock = lock;
+	}
 }

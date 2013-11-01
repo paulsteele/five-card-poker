@@ -1,8 +1,9 @@
 package poker;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -17,29 +18,34 @@ public class Window {
 	private JButton call;
 	private JButton fold;
 	private Poker caller; //used to see who called this window
+	private JMenuItem play;
+	private JMenuItem how;
+	private JMenuItem about;
+	private JMenuItem exit;
+	private JMenu menu;
+	private JMenuBar menubar;
+	private JFrame window;
 	
-	public Window(Poker caller) {
-		//create main window
+	public Window(final Poker caller) {
 		this.caller = caller;
-		JFrame window = new JFrame("Texas Hold 'em");
+		//Creates the Main Window and sets settings
+		window = new JFrame("Texas Hold 'em");
 		window.setSize(640, 480);
-		window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//Creates main panel and sets settings
 		JPanel full = new JPanel();
 		full.setLayout(new BoxLayout(full, BoxLayout.Y_AXIS));
-		//create Panels
+		//create sub panels and sets settings
 		JPanel bottom = new JPanel();
 		bottom.setSize(640, 192);
 		bottom.setLayout(new BoxLayout(bottom, BoxLayout.X_AXIS));
-		
 		JPanel interaction = new JPanel();
 		interaction.setMaximumSize(new Dimension(192, 192));
 		interaction.setLayout(new BoxLayout(interaction, BoxLayout.Y_AXIS));
 		interaction.setBorder(BorderFactory.createMatteBorder(5,0,5,5, Color.black));
-		
 		JPanel middle = new JPanel();
 		middle.setSize(640,144);
 		middle.setLayout(new BoxLayout(middle, BoxLayout.X_AXIS));
-		
 		JPanel empty = new JPanel();
 		empty.setMaximumSize(new Dimension (192, 144));
 		JPanel top  = new JPanel();
@@ -50,7 +56,7 @@ public class Window {
 		community = new JTextArea();
 		community.setMaximumSize(new Dimension(448, 144));
 		community.setLineWrap(true);
-		//community.setEditable(false);
+		community.setEditable(false);
 		community.setBorder(BorderFactory.createLineBorder(Color.black, 5));
 		score = new JTextArea();
 		score.setMaximumSize(new Dimension(192,144));
@@ -60,18 +66,70 @@ public class Window {
 		playcards = new JTextArea(); 
 		playcards.setMaximumSize(new Dimension (448, 144));
 		playcards.setLineWrap(true);
-		//playcards.setEditable(false);
+		playcards.setEditable(false);
 		playcards.setBorder(BorderFactory.createMatteBorder(0,5,5,5, Color.black));
 		terminal = new JTextArea();
 		terminal.setMaximumSize(new Dimension(448, 192));
 		terminal.setLineWrap(true);
-		//terminal.setEditable(false);
+		terminal.setEditable(false);
 		terminal.setBorder(BorderFactory.createMatteBorder(0,5,5,5, Color.black));
+		//Initializes interactive widgets
 		bidfield = new JTextField();
 		bidfield.setMaximumSize(new Dimension(192,32));
 		bid = new JButton("Bid");
+		bid.addActionListener(new ActionListener (){
+			public void actionPerformed(ActionEvent ae){
+				synchronized (Poker.getLock()){
+					Poker.getLock().notify();
+				}
+			}
+		});
 		call = new JButton("Call");
+		call.addActionListener(new ActionListener () {
+			public void actionPerformed(ActionEvent ae) {
+				
+			}
+		});
 		fold = new JButton("Fold");
+		fold.addActionListener(new ActionListener () {
+			public void actionPerformed(ActionEvent ae) {
+				
+			}
+		});
+		//menu bar editing
+		menu = new JMenu("File");
+		play = new JMenuItem("Play new game"); 
+		play.addActionListener(new ActionListener (){
+			public void actionPerformed(ActionEvent ae) {
+				Thread t = new Thread(caller);
+				t.start();
+			}
+		});
+		how = new JMenuItem("How to play");
+		how.addActionListener(new ActionListener (){
+			public void actionPerformed(ActionEvent ae) {
+				
+			}
+		});
+		about = new JMenuItem("About");
+		about.addActionListener(new ActionListener () {
+			public void actionPerformed(ActionEvent ae) {
+				
+			}
+		});
+		exit = new JMenuItem("Exit");
+		exit.addActionListener(new ActionListener (){
+			public void actionPerformed(ActionEvent ae) {
+				window.dispose();
+			}
+		});
+		//Initializes MenuBar
+		menubar = new JMenuBar();
+		menu.add(play);
+		menu.add(how);
+		menu.add(about);
+		menu.add(exit);
+		menubar.add(menu);
 		//add widgets to panels
 		interaction.add(Box.createGlue());
 		interaction.add(bidfield);
@@ -94,6 +152,8 @@ public class Window {
 		full.add(bottom);
 		//add main panel to window
 		window.add(full);
+		//add the menubar
+		window.setJMenuBar(menubar);
 		//display window
 		window.setResizable(false);
 		window.setVisible(true);
@@ -104,5 +164,11 @@ public class Window {
 		for (int i = 1; i < caller.PLAYERS + 1; i++){
 			score.append(caller.getPlayer(i).getName()+": $"+caller.getPlayer(i).getCash() + "\n");
 		}
+		score.append("\nCash in pot: " + caller.getPot());
+	}
+
+	
+	public void print(String str){
+		terminal.append(str + "\n");
 	}
 }
