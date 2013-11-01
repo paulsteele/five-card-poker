@@ -1,11 +1,13 @@
 package poker;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.text.DefaultCaret;
 
 public class Window {
 
@@ -72,28 +74,54 @@ public class Window {
 		terminal.setMaximumSize(new Dimension(448, 192));
 		terminal.setLineWrap(true);
 		terminal.setEditable(false);
-		terminal.setBorder(BorderFactory.createMatteBorder(0,5,5,5, Color.black));
+		DefaultCaret caret = (DefaultCaret)terminal.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setViewportView(terminal);
+		scrollPane.setMaximumSize(new Dimension(448, 192));
+		scrollPane.setBorder(BorderFactory.createMatteBorder(0,5,5,5, Color.black));
 		//Initializes interactive widgets
 		bidfield = new JTextField();
 		bidfield.setMaximumSize(new Dimension(192,32));
 		bid = new JButton("Bid");
 		bid.addActionListener(new ActionListener (){
 			public void actionPerformed(ActionEvent ae){
-				synchronized (Poker.getLock()){
-					Poker.getLock().notify();
+				String entered = bidfield.getText();
+				int ent;
+				try {
+					ent = Integer.parseInt(entered);
+					Poker.dropbox = ent;
+					synchronized (Poker.getLock()){
+						Poker.getLock().notify();
+					}
 				}
+				catch (NumberFormatException e){
+					print("Invalid Number, please enter again");
+				}
+				finally {
+					bidfield.setText(null);
+				}
+				
+				
+				
 			}
 		});
 		call = new JButton("Call");
 		call.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent ae) {
-				
+				synchronized (Poker.getLock()) {
+					Poker.dropbox = "call";
+					Poker.getLock().notify();
+				}
 			}
 		});
 		fold = new JButton("Fold");
 		fold.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent ae) {
-				
+				synchronized (Poker.getLock()){
+					Poker.dropbox = "folding";
+					Poker.getLock().notify();
+				}
 			}
 		});
 		//menu bar editing
@@ -120,7 +148,7 @@ public class Window {
 		exit = new JMenuItem("Exit");
 		exit.addActionListener(new ActionListener (){
 			public void actionPerformed(ActionEvent ae) {
-				window.dispose();
+				System.exit(0);
 			}
 		});
 		//Initializes MenuBar
@@ -144,7 +172,8 @@ public class Window {
 		top.add(score);
 		middle.add(playcards);
 		middle.add(empty);
-		bottom.add(terminal);
+		//bottom.add(terminal);
+		bottom.add(scrollPane);
 		bottom.add(interaction);
 		//add panels to main panel
 		full.add(top);
@@ -171,4 +200,5 @@ public class Window {
 	public void print(String str){
 		terminal.append(str + "\n");
 	}
+	
 }

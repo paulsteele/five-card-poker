@@ -20,6 +20,7 @@ public class Poker implements Runnable{
 	private int dealer;
 	public static final int BIG_BLIND = 10; //the big blind
 	private static Object lock;
+	public static Object dropbox; //used to store values to be passed between threads
 	/**
 	 * main()
 	 * 
@@ -28,6 +29,7 @@ public class Poker implements Runnable{
 	 */
 	public static void main(String[] args) {//Actual game runtime
 		Poker game = new Poker(5);
+		Poker.lock = game;
 		Window window = new Window(game);
 		game.passWindow(window);
 		window.redrawScore();
@@ -174,7 +176,7 @@ public class Poker implements Runnable{
 		while (!done){
 			//gets players' bids
 			for (int i = 1; i < PLAYERS +1; i++){
-				if (!players[i].meetingBid(bid)) {
+				if (!players[i].meetingBid(bid) && !players[i].folding) {
 					temp = players[i].getBid(bid);
 					pot += temp;
 					if (temp > bid){
@@ -204,7 +206,6 @@ public class Poker implements Runnable{
 	public void passWindow(Window window){
 		for (int i = 1; i < PLAYERS + 1; i++){
 			players[i].setWindow(window);
-			players[i].speak("I'm alive");
 		}
 	}
 	public static Object getLock() {

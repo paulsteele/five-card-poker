@@ -30,7 +30,21 @@ public class Human extends Player {
 					e.printStackTrace();
 				}
 			}
-			window.print("WINSAUCE");
+			if ("folding".equals(Poker.dropbox)){
+				speak("folds");
+				folding = true;
+				return 0;
+			}
+			
+			if ("call".equals(Poker.dropbox)){
+				bid = past - currentBid;
+				speak("calls the bid by putting in "+ bid);
+				changeCash(-bid);
+				currentBid += bid;
+				return bid;
+			}
+			
+			bid = (int) Poker.dropbox;
 		}
 		changeCash(-bid);
 		currentBid += bid;
