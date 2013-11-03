@@ -27,11 +27,14 @@ public class Human extends Player {
 			Poker.setLock(this);
 			synchronized (Poker.getLock()){
 				try {
+					window.buttonsEnabled(true);
 					wait();
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					window.buttonsEnabled(false);
+					window.print("CRITICAL FAILURE");
 				}
 			}
+			window.buttonsEnabled(false);
 			if ("folding".equals(Poker.dropbox)){
 				speak("folds");
 				folding = true;

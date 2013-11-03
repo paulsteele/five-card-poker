@@ -183,6 +183,8 @@ public class Window {
 		window.add(full);
 		//add the menubar
 		window.setJMenuBar(menubar);
+		//start off buttons disabled
+		buttonsEnabled(false);
 		//display window
 		window.setResizable(false);
 		window.setVisible(true);
@@ -206,5 +208,11 @@ public class Window {
 	}
 	public void clearCommunity(){
 		community.setText("-----Community Cards-----\n");
+	}
+	
+	public void buttonsEnabled(boolean desired){
+		bid.setEnabled(desired);
+		call.setEnabled(desired);
+		fold.setEnabled(desired);
 	}
 }

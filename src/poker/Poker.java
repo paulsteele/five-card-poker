@@ -193,7 +193,7 @@ public class Poker implements Runnable{
 			done = true;
 			//checks to see if all players have called
 			for (int i = 1; i < PLAYERS + 1; i++){
-				if (players[i].meetingBid(bid) != true)
+				if (players[i].meetingBid(bid) != true && !players[i].folding)
 					done = false;
 			}
 			
