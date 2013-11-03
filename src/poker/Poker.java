@@ -21,6 +21,7 @@ public class Poker implements Runnable{
 	public static final int BIG_BLIND = 10; //the big blind
 	private static Object lock;
 	public static Object dropbox; //used to store values to be passed between threads
+	private Window win;
 	/**
 	 * main()
 	 * 
@@ -120,17 +121,21 @@ public class Poker implements Runnable{
 		temp = players[getBlinders()[0]].getBlind(true);
 		pot += temp;
 		bid = temp;
+		win.redrawScore();
 		//small blind right of dealer
 		temp = players[getBlinders()[1]].getBlind(false);
 		pot += temp;
-		
+		win.redrawScore();
 		//round of bidding
 		beginBid();
 		//place 3 cards in community card
+		players[dealer].speak("deals three cards to the flop");
+		win.clearCommunity();
 		for (int i = 0; i < 3; i++){
 			Card tempCard = deck.draw();
 			community.add(tempCard);
-			players[dealer].speak("deals the " + tempCard.toString() + " to the flop");
+			win.printToCommunity(tempCard.toString()+"\n");
+			Poker.sleep(750);
 		}
 		
 		
@@ -179,6 +184,7 @@ public class Poker implements Runnable{
 				if (!players[i].meetingBid(bid) && !players[i].folding) {
 					temp = players[i].getBid(bid);
 					pot += temp;
+					win.redrawScore();
 					if (temp > bid){
 						bid = temp;
 					}
@@ -204,6 +210,7 @@ public class Poker implements Runnable{
 	 * @param window
 	 */
 	public void passWindow(Window window){
+		win = window;
 		for (int i = 1; i < PLAYERS + 1; i++){
 			players[i].setWindow(window);
 		}

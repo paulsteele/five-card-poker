@@ -4,6 +4,7 @@ public class Human extends Player {
 	
 	
 	public int getBlind(boolean big){
+		Poker.sleep(500);
 		int blind;
 		if (big)
 			blind = Poker.BIG_BLIND;
@@ -12,12 +13,14 @@ public class Human extends Player {
 				changeCash(-blind); 
 				speak("puts $" + blind + " forward as blind.");
 				currentBid = blind;
+				window.redrawScore();
 				return blind;
 	}
 	
 	
 	public int getBid(int past){
 		int bid = 0;
+		Poker.sleep(500);
 		while (bid < past){
 			window.print("Please enter your bid");
 			window.print("You need to bid " + (past - currentBid) + " in order to call");
@@ -26,7 +29,6 @@ public class Human extends Player {
 				try {
 					wait();
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

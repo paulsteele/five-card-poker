@@ -15,6 +15,7 @@ public class AI extends Player{
 	
 	public int getBlind(boolean big){
 		Poker.sleep(500);
+		Poker.sleep(1500);
 		int ret;
 		int blind;
 		if (big)
@@ -33,7 +34,6 @@ public class AI extends Player{
 			ret = 0;
 		}
 		
-		Poker.sleep(1500);
 		return ret;
 	}
 	
@@ -45,7 +45,6 @@ public class AI extends Player{
 		speak("calls the bid by putting in "+ howmuch);
 		changeCash(-howmuch);
 		currentBid += howmuch;
-		Poker.sleep(750);
 		return howmuch;
 		
 	}

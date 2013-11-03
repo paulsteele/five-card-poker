@@ -201,4 +201,10 @@ public class Window {
 		terminal.append(str + "\n");
 	}
 	
+	public void printToCommunity(String str) {
+		community.append(str);
+	}
+	public void clearCommunity(){
+		community.setText("-----Community Cards-----\n");
+	}
 }
