@@ -45,6 +45,14 @@ public class Window {
 		interaction.setMaximumSize(new Dimension(192, 192));
 		interaction.setLayout(new BoxLayout(interaction, BoxLayout.Y_AXIS));
 		interaction.setBorder(BorderFactory.createMatteBorder(5,0,5,5, Color.black));
+		JPanel first = new JPanel();
+		first.setLayout(new BoxLayout(first, BoxLayout.X_AXIS));
+		JPanel second = new JPanel();
+		second.setLayout(new BoxLayout(second, BoxLayout.X_AXIS));
+		JPanel third = new JPanel();
+		third.setLayout(new BoxLayout(third, BoxLayout.X_AXIS));
+		JPanel fourth = new JPanel();
+		fourth.setLayout(new BoxLayout(fourth, BoxLayout.X_AXIS));
 		JPanel middle = new JPanel();
 		middle.setSize(640,144);
 		middle.setLayout(new BoxLayout(middle, BoxLayout.X_AXIS));
@@ -82,7 +90,7 @@ public class Window {
 		scrollPane.setBorder(BorderFactory.createMatteBorder(0,5,5,5, Color.black));
 		//Initializes interactive widgets
 		bidfield = new JTextField();
-		bidfield.setMaximumSize(new Dimension(192,32));
+		bidfield.setMaximumSize(new Dimension(80,35));
 		bid = new JButton("Bid");
 		bid.addActionListener(new ActionListener (){
 			public void actionPerformed(ActionEvent ae){
@@ -159,14 +167,26 @@ public class Window {
 		menu.add(exit);
 		menubar.add(menu);
 		//add widgets to panels
+		first.add(Box.createRigidArea(new Dimension(10,0)));
+		first.add(bidfield);
+		first.add(Box.createRigidArea(new Dimension(10,0)));
+		second.add(Box.createGlue());
+		second.add(bid);
+		second.add(Box.createGlue());
+		third.add(Box.createGlue());
+		third.add(call);
+		third.add(Box.createGlue());
+		fourth.add(Box.createGlue());
+		fourth.add(fold);
+		fourth.add(Box.createGlue());
 		interaction.add(Box.createGlue());
-		interaction.add(bidfield);
+		interaction.add(first);
 		interaction.add(Box.createGlue());
-		interaction.add(bid);
+		interaction.add(second);
 		interaction.add(Box.createGlue());
-		interaction.add(call);
+		interaction.add(third);
 		interaction.add(Box.createGlue());
-		interaction.add(fold);
+		interaction.add(fourth);
 		interaction.add(Box.createGlue());
 		top.add(community);
 		top.add(score);
