@@ -48,6 +48,10 @@ public class AI extends Player{
 		return howmuch;
 		
 	}
+
+	public void showHand() {
+
+	}
 	
 	
 	

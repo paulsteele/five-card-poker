@@ -1,6 +1,6 @@
 package poker;
 
-public class Player {
+public abstract class Player {
 	protected String name;
 	protected boolean folding;
 	protected int cash;
@@ -36,20 +36,9 @@ public class Player {
 			folding = true;
 		}
 	}
-	
-	
-	
-	public int getBlind(boolean big){
-		return -500;
-		//NEEDS TO BE OVERWRITTEN
-	}
-	public int getBid(int past){
-		return -500;
-		//NEEDS TO BE OVERWRITTEN
-	}
-	public void showHand(){
-		//NEEDS TO BE OVERWRITTEN
-	}
+	public abstract int getBlind(boolean big);
+	public abstract int getBid(int past);
+	public abstract void showHand();
 	
 	public boolean isFolding(){
 		return folding;
