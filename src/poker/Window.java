@@ -235,4 +235,12 @@ public class Window {
 		call.setEnabled(desired);
 		fold.setEnabled(desired);
 	}
+	
+	public void printToPlayerCards(String str){
+		playcards.append(str);
+	}
+	
+	public void clearPlayerCards(){
+		playcards.setText("-----Your Hand-----\n");
+	}
 }

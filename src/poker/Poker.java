@@ -106,12 +106,21 @@ public class Poker implements Runnable{
 			players[i].setHand(new Hand());
 		}
 		
+		
 		//deal each player 2 cards
 		for (int i = 1; i < PLAYERS +1; i++){
 			players[i].getHand().add(deck.draw());
 			players[i].getHand().add(deck.draw());
 		}
+		//print players cards to screen
+		win.clearPlayerCards();
+		win.printToPlayerCards(players[1].getHand().getCard(0).toString()+"\n");
+		win.printToPlayerCards(players[1].getHand().getCard(1).toString()+"\n");
+		
+		
+		
 		//Say that the dealer deals
+		
 		players[dealer].speak("deals two cards to each player");
 		//Clear each players current bid
 		for (int i = 1; i < PLAYERS + 1;i++){
@@ -131,20 +140,35 @@ public class Poker implements Runnable{
 		//place 3 cards in community card
 		players[dealer].speak("deals three cards to the flop");
 		win.clearCommunity();
+		Card tempCard;
 		for (int i = 0; i < 3; i++){
-			Card tempCard = deck.draw();
+			tempCard = deck.draw();
 			community.add(tempCard);
 			win.printToCommunity(tempCard.toString()+"\n");
 			Poker.sleep(750);
 		}
+		//bidding round 
+		beginBid();
+		//deal 1 card to community
+		players[dealer].speak("deals a card to the turn");
+		tempCard = deck.draw();
+		community.add(tempCard);
+		win.printToCommunity(tempCard.toString()+"\n");
+		Poker.sleep(750);
+		//bidding round
+		beginBid();
+		//deal final card to community
+		players[dealer].speak("deals a card to the river");
+		tempCard = deck.draw();
+		community.add(tempCard);
+		win.printToCommunity(tempCard.toString()+"\n");
+		Poker.sleep(750);
 		
 		
 		
 		
 		
 	}
-
-	
 	
 	public Player getPlayer(int play){
 		return players[play];
@@ -177,11 +201,11 @@ public class Poker implements Runnable{
 	private void beginBid(){
 		boolean done = false;
 		int temp;
-		
+		boolean oneround = false;
 		while (!done){
 			//gets players' bids
 			for (int i = 1; i < PLAYERS +1; i++){
-				if (!players[i].meetingBid(bid) && !players[i].folding) {
+				if ((!oneround || !players[i].meetingBid(bid)) && !players[i].folding) {
 					temp = players[i].getBid(bid);
 					pot += temp;
 					win.redrawScore();
@@ -196,7 +220,7 @@ public class Poker implements Runnable{
 				if (players[i].meetingBid(bid) != true && !players[i].folding)
 					done = false;
 			}
-			
+			oneround = true;
 			
 		}
 	}
