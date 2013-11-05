@@ -1,8 +1,9 @@
 package poker;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -33,16 +34,15 @@ public class Window {
 		//Creates the Main Window and sets settings
 		window = new JFrame("Texas Hold 'em");
 		window.setSize(640, 480);
+		window.setMinimumSize(new Dimension(640,480));
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Creates main panel and sets settings
 		JPanel full = new JPanel();
-		full.setLayout(new BoxLayout(full, BoxLayout.Y_AXIS));
+		full.setLayout(new GridBagLayout());
+		GridBagConstraints constraints = new GridBagConstraints();
+		 constraints.fill = GridBagConstraints.HORIZONTAL;
 		//create sub panels and sets settings
-		JPanel bottom = new JPanel();
-		bottom.setSize(640, 192);
-		bottom.setLayout(new BoxLayout(bottom, BoxLayout.X_AXIS));
 		JPanel interaction = new JPanel();
-		interaction.setMaximumSize(new Dimension(192, 192));
 		interaction.setLayout(new BoxLayout(interaction, BoxLayout.Y_AXIS));
 		interaction.setBorder(BorderFactory.createMatteBorder(5,0,5,5, Color.black));
 		JPanel first = new JPanel();
@@ -53,41 +53,34 @@ public class Window {
 		third.setLayout(new BoxLayout(third, BoxLayout.X_AXIS));
 		JPanel fourth = new JPanel();
 		fourth.setLayout(new BoxLayout(fourth, BoxLayout.X_AXIS));
-		JPanel middle = new JPanel();
-		middle.setSize(640,144);
-		middle.setLayout(new BoxLayout(middle, BoxLayout.X_AXIS));
-		JPanel empty = new JPanel();
-		empty.setMaximumSize(new Dimension (192, 144));
 		JPanel top  = new JPanel();
-		top.setSize(640, 144);
 		top.setLayout(new BoxLayout(top,BoxLayout.X_AXIS));
 					
 		//initialize the text areas
 		community = new JTextArea();
-		community.setMaximumSize(new Dimension(448, 144));
 		community.setLineWrap(true);
 		community.setEditable(false);
 		community.setBorder(BorderFactory.createLineBorder(Color.black, 5));
+		community.setPreferredSize(new Dimension(400,100));
 		score = new JTextArea();
-		score.setMaximumSize(new Dimension(192,144));
 		score.setLineWrap(true);
 		score.setEditable(false);
 		score.setBorder(BorderFactory.createMatteBorder(5,0,5,5, Color.black));
 		playcards = new JTextArea(); 
-		playcards.setMaximumSize(new Dimension (448, 144));
 		playcards.setLineWrap(true);
 		playcards.setEditable(false);
 		playcards.setBorder(BorderFactory.createMatteBorder(0,5,5,5, Color.black));
+		playcards.setPreferredSize(new Dimension(400,100));
 		terminal = new JTextArea();
-		terminal.setMaximumSize(new Dimension(448, 192));
 		terminal.setLineWrap(true);
 		terminal.setEditable(false);
+		playcards.setPreferredSize(new Dimension(400,100));
 		DefaultCaret caret = (DefaultCaret)terminal.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setViewportView(terminal);
-		scrollPane.setMaximumSize(new Dimension(448, 192));
 		scrollPane.setBorder(BorderFactory.createMatteBorder(0,5,5,5, Color.black));
+		scrollPane.setPreferredSize(new Dimension(400,100));
 		//Initializes interactive widgets
 		bidfield = new JTextField();
 		bidfield.setMaximumSize(new Dimension(80,35));
@@ -166,7 +159,7 @@ public class Window {
 		menu.add(about);
 		menu.add(exit);
 		menubar.add(menu);
-		//add widgets to panels
+		//Set up Interactions pane
 		first.add(Box.createRigidArea(new Dimension(10,0)));
 		first.add(bidfield);
 		first.add(Box.createRigidArea(new Dimension(10,0)));
@@ -188,17 +181,25 @@ public class Window {
 		interaction.add(Box.createGlue());
 		interaction.add(fourth);
 		interaction.add(Box.createGlue());
-		top.add(community);
-		top.add(score);
-		middle.add(playcards);
-		middle.add(empty);
-		//bottom.add(terminal);
-		bottom.add(scrollPane);
-		bottom.add(interaction);
-		//add panels to main panel
-		full.add(top);
-		full.add(middle);
-		full.add(bottom);
+		//add widgets to full
+		constraints.gridx =0;
+		constraints.gridy = 0;
+		constraints.gridwidth = 2;
+		full.add(community, constraints);
+		constraints.gridx = 2;
+		constraints.gridwidth = 1;
+		full.add(score, constraints);
+		constraints.gridx = 0;
+		constraints.gridy = 1;
+		constraints.gridwidth = 2;
+		full.add(playcards, constraints);
+		constraints.gridx= 0;
+		constraints.gridy = 2;
+		constraints.gridwidth = 2;
+		full.add(scrollPane, constraints);
+		constraints.gridx =2;
+		constraints.gridwidth = 1;
+		full.add(interaction);
 		//add main panel to window
 		window.add(full);
 		//add the menubar
@@ -206,7 +207,7 @@ public class Window {
 		//start off buttons disabled
 		buttonsEnabled(false);
 		//display window
-		window.setResizable(false);
+		window.setResizable(true);
 		window.setVisible(true);
 	}
 
