@@ -205,12 +205,12 @@ public class Poker implements Runnable{
 		while (!done){
 			//gets players' bids
 			for (int i = 1; i < PLAYERS +1; i++){
-				if ((!oneround || !players[i].meetingBid(bid)) && !players[i].folding) {
+				if ((!oneround || players[i].meetingBid(bid)) && !players[i].folding) {
 					temp = players[i].getBid(bid);
 					pot += temp;
 					win.redrawScore();
 					if (temp > bid){
-						bid = temp;
+						bid = temp ;
 					}
 				}
 			}		
@@ -222,6 +222,10 @@ public class Poker implements Runnable{
 			}
 			oneround = true;
 			
+		}
+		bid = 0;
+		for (int i = 1; i < PLAYERS +1; i++ ) {
+			players[i].setCurrentBid(0);
 		}
 	}
 	

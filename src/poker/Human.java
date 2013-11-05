@@ -21,7 +21,8 @@ public class Human extends Player {
 	public int getBid(int past){
 		int bid = 0;
 		Poker.sleep(500);
-		while (bid < past){
+		boolean oneround = false;
+		while (!oneround || (bid < past)){
 			window.print("Please enter your bid");
 			window.print("You need to bid " + (past - currentBid) + " in order to call");
 			Poker.setLock(this);
@@ -50,6 +51,7 @@ public class Human extends Player {
 			}
 			
 			bid = (int) Poker.dropbox;
+			oneround = true;
 		}
 		changeCash(-bid);
 		currentBid += bid;
