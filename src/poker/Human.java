@@ -3,7 +3,7 @@ package poker;
 public class Human extends Player {
 	
 	
-	public int getBlind(boolean big){
+	public int getBlind(boolean big) throws InterruptedException{
 		Poker.sleep(500);
 		int blind;
 		if (big)
@@ -18,7 +18,7 @@ public class Human extends Player {
 	}
 	
 	
-	public int getBid(int past){
+	public int getBid(int past) throws InterruptedException{
 		int bid = 0;
 		Poker.sleep(500);
 		boolean oneround = false;
@@ -27,13 +27,8 @@ public class Human extends Player {
 			window.print("You need to bid " + (past - currentBid) + " in order to call");
 			Poker.setLock(this);
 			synchronized (Poker.getLock()){
-				try {
 					window.buttonsEnabled(true);
-					wait();
-				} catch (InterruptedException e) {
-					window.buttonsEnabled(false);
-					window.print("CRITICAL FAILURE");
-				}
+					wait();	
 			}
 			window.buttonsEnabled(false);
 			if ("folding".equals(Poker.dropbox)){
@@ -57,13 +52,4 @@ public class Human extends Player {
 		currentBid += bid;
 		return bid;
 	}
-	
-	public void showHand(){
-		System.out.println(getName() + "'s cards are");
-		for (int i = 0; i < getHand().length(); i++){
-			System.out.print( (i+1) + ": " );
-			getHand().getCard(i).display();
-		}
-	}
-	
 }

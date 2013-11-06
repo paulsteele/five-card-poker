@@ -36,9 +36,8 @@ public abstract class Player {
 			folding = true;
 		}
 	}
-	public abstract int getBlind(boolean big);
-	public abstract int getBid(int past);
-	public abstract void showHand();
+	public abstract int getBlind(boolean big) throws InterruptedException;
+	public abstract int getBid(int past) throws InterruptedException;
 	
 	public boolean isFolding(){
 		return folding;

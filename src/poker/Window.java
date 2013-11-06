@@ -124,6 +124,9 @@ public class Window {
 		play = new JMenuItem("Play new game"); 
 		play.addActionListener(new ActionListener (){
 			public void actionPerformed(ActionEvent ae) {
+				if (background != null){
+					background.interrupt();
+				}
 				background = new Thread(caller);
 				background.start();
 			}

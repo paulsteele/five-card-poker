@@ -13,7 +13,7 @@ public class AI extends Player{
 	
 	private Random rand = new Random();
 	
-	public int getBlind(boolean big){
+	public int getBlind(boolean big) throws InterruptedException{
 		Poker.sleep(500);
 		Poker.sleep(1500);
 		int ret;
@@ -37,7 +37,7 @@ public class AI extends Player{
 		return ret;
 	}
 	
-	public int getBid(int past){
+	public int getBid(int past) throws InterruptedException{
 		Poker.sleep(500);
 		Poker.sleep(750);
 		
@@ -48,12 +48,4 @@ public class AI extends Player{
 		return howmuch;
 		
 	}
-
-	public void showHand() {
-
-	}
-	
-	
-	
-
 }

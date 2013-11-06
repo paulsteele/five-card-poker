@@ -92,77 +92,82 @@ public class Poker implements Runnable{
 	 * 
 	 */
 	public void run(){
-		int temp; //this number is used when temporary values need to be sent to two different functions
-		deck = new Deck();
-		for (int i = 0; i < 20; i++){
-			deck.shuffle();
-		}
-		
-		pot = 0;
-		bid = 0;
-		deck.shuffle();//start off by shuffling
-		//give each player a brand new hand
-		for (int i = 1; i < PLAYERS + 1; i++){
-			players[i].setHand(new Hand());
-		}
-		
-		
-		//deal each player 2 cards
-		for (int i = 1; i < PLAYERS +1; i++){
-			players[i].getHand().add(deck.draw());
-			players[i].getHand().add(deck.draw());
-		}
-		//print players cards to screen
-		win.clearPlayerCards();
-		win.printToPlayerCards(players[1].getHand().getCard(0).toString()+"\n");
-		win.printToPlayerCards(players[1].getHand().getCard(1).toString()+"\n");
-		
-		
-		
-		//Say that the dealer deals
-		
-		players[dealer].speak("deals two cards to each player");
-		//Clear each players current bid
-		for (int i = 1; i < PLAYERS + 1;i++){
-			players[i].setCurrentBid(0);
-		}
-		//big blind left of dealer
-		temp = players[getBlinders()[0]].getBlind(true);
-		pot += temp;
-		bid = temp;
-		win.redrawScore();
-		//small blind right of dealer
-		temp = players[getBlinders()[1]].getBlind(false);
-		pot += temp;
-		win.redrawScore();
-		//round of bidding
-		beginBid();
-		//place 3 cards in community card
-		players[dealer].speak("deals three cards to the flop");
-		win.clearCommunity();
-		Card tempCard;
-		for (int i = 0; i < 3; i++){
+		try { //allows interruption
+			int temp; //this number is used when temporary values need to be sent to two different functions
+			deck = new Deck();
+			for (int i = 0; i < 20; i++){
+				deck.shuffle();
+			}
+			
+			pot = 0;
+			bid = 0;
+			deck.shuffle();//start off by shuffling
+			//give each player a brand new hand
+			for (int i = 1; i < PLAYERS + 1; i++){
+				players[i].setHand(new Hand());
+			}
+			
+			
+			//deal each player 2 cards
+			for (int i = 1; i < PLAYERS +1; i++){
+				players[i].getHand().add(deck.draw());
+				players[i].getHand().add(deck.draw());
+			}
+			//print players cards to screen
+			win.clearPlayerCards();
+			win.printToPlayerCards(players[1].getHand().getCard(0).toString()+"\n");
+			win.printToPlayerCards(players[1].getHand().getCard(1).toString()+"\n");
+			
+			
+			
+			//Say that the dealer deals
+			
+			players[dealer].speak("deals two cards to each player");
+			//Clear each players current bid
+			for (int i = 1; i < PLAYERS + 1;i++){
+				players[i].setCurrentBid(0);
+			}
+			//big blind left of dealer
+			temp = players[getBlinders()[0]].getBlind(true);
+			pot += temp;
+			bid = temp;
+			win.redrawScore();
+			//small blind right of dealer
+			temp = players[getBlinders()[1]].getBlind(false);
+			pot += temp;
+			win.redrawScore();
+			//round of bidding
+			beginBid();
+			//place 3 cards in community card
+			players[dealer].speak("deals three cards to the flop");
+			win.clearCommunity();
+			Card tempCard;
+			for (int i = 0; i < 3; i++){
+				tempCard = deck.draw();
+				community.add(tempCard);
+				win.printToCommunity(tempCard.toString()+"\n");
+				Poker.sleep(750);
+			}
+			//bidding round 
+			beginBid();
+			//deal 1 card to community
+			players[dealer].speak("deals a card to the turn");
+			tempCard = deck.draw();
+			community.add(tempCard);
+			win.printToCommunity(tempCard.toString()+"\n");
+			Poker.sleep(750);
+			//bidding round
+			beginBid();
+			//deal final card to community
+			players[dealer].speak("deals a card to the river");
 			tempCard = deck.draw();
 			community.add(tempCard);
 			win.printToCommunity(tempCard.toString()+"\n");
 			Poker.sleep(750);
 		}
-		//bidding round 
-		beginBid();
-		//deal 1 card to community
-		players[dealer].speak("deals a card to the turn");
-		tempCard = deck.draw();
-		community.add(tempCard);
-		win.printToCommunity(tempCard.toString()+"\n");
-		Poker.sleep(750);
-		//bidding round
-		beginBid();
-		//deal final card to community
-		players[dealer].speak("deals a card to the river");
-		tempCard = deck.draw();
-		community.add(tempCard);
-		win.printToCommunity(tempCard.toString()+"\n");
-		Poker.sleep(750);
+		catch (InterruptedException e){
+			//simply end the run if an interruption occurs
+		}
 		
 		
 		
@@ -174,15 +179,8 @@ public class Poker implements Runnable{
 		return players[play];
 	}
 	
-	public static void sleep(int i){
-	
-			try {
+	public static void sleep(int i) throws InterruptedException{
 				Thread.sleep(i);
-			} 
-			catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		
 	}
 	
 	private int[] getBlinders(){
@@ -198,7 +196,7 @@ public class Poker implements Runnable{
 		return ret;
 	}
 	
-	private void beginBid(){
+	private void beginBid() throws InterruptedException {
 		boolean done = false;
 		int temp;
 		boolean oneround = false;
