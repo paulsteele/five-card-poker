@@ -28,6 +28,7 @@ public class Window {
 	private JMenu menu;
 	private JMenuBar menubar;
 	private JFrame window;
+	private Thread background;
 	
 	public Window(final Poker caller) {
 		this.caller = caller;
@@ -40,7 +41,6 @@ public class Window {
 		JPanel full = new JPanel();
 		full.setLayout(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
-		 constraints.fill = GridBagConstraints.HORIZONTAL;
 		//create sub panels and sets settings
 		JPanel interaction = new JPanel();
 		interaction.setLayout(new BoxLayout(interaction, BoxLayout.Y_AXIS));
@@ -61,7 +61,6 @@ public class Window {
 		community.setLineWrap(true);
 		community.setEditable(false);
 		community.setBorder(BorderFactory.createLineBorder(Color.black, 5));
-		community.setPreferredSize(new Dimension(400,100));
 		score = new JTextArea();
 		score.setLineWrap(true);
 		score.setEditable(false);
@@ -70,17 +69,15 @@ public class Window {
 		playcards.setLineWrap(true);
 		playcards.setEditable(false);
 		playcards.setBorder(BorderFactory.createMatteBorder(0,5,5,5, Color.black));
-		playcards.setPreferredSize(new Dimension(400,100));
 		terminal = new JTextArea();
 		terminal.setLineWrap(true);
 		terminal.setEditable(false);
-		playcards.setPreferredSize(new Dimension(400,100));
 		DefaultCaret caret = (DefaultCaret)terminal.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setPreferredSize(new Dimension(640, 500));
 		scrollPane.setViewportView(terminal);
 		scrollPane.setBorder(BorderFactory.createMatteBorder(0,5,5,5, Color.black));
-		scrollPane.setPreferredSize(new Dimension(400,100));
 		//Initializes interactive widgets
 		bidfield = new JTextField();
 		bidfield.setMaximumSize(new Dimension(80,35));
@@ -102,9 +99,6 @@ public class Window {
 				finally {
 					bidfield.setText(null);
 				}
-				
-				
-				
 			}
 		});
 		call = new JButton("Call");
@@ -130,8 +124,8 @@ public class Window {
 		play = new JMenuItem("Play new game"); 
 		play.addActionListener(new ActionListener (){
 			public void actionPerformed(ActionEvent ae) {
-				Thread t = new Thread(caller);
-				t.start();
+				background = new Thread(caller);
+				background.start();
 			}
 		});
 		how = new JMenuItem("How to play");
@@ -143,13 +137,16 @@ public class Window {
 		about = new JMenuItem("About");
 		about.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent ae) {
-				
+				JOptionPane.showMessageDialog(null, "Programmed by: Paul Steele\nCheck out paul-steele.com", "About",JOptionPane.PLAIN_MESSAGE);
 			}
 		});
 		exit = new JMenuItem("Exit");
 		exit.addActionListener(new ActionListener (){
 			public void actionPerformed(ActionEvent ae) {
-				System.exit(0);
+				int reallyExit = JOptionPane.showConfirmDialog(null, "Do you really want to exit?");
+				if (reallyExit == 0){
+					System.exit(0);
+				}
 			}
 		});
 		//Initializes MenuBar
@@ -182,24 +179,32 @@ public class Window {
 		interaction.add(fourth);
 		interaction.add(Box.createGlue());
 		//add widgets to full
+		constraints.fill  = GridBagConstraints.BOTH;
 		constraints.gridx =0;
 		constraints.gridy = 0;
 		constraints.gridwidth = 2;
+		constraints.weightx = .7;
+		constraints.weighty = 0.0;
 		full.add(community, constraints);
 		constraints.gridx = 2;
 		constraints.gridwidth = 1;
+		constraints.weightx = .3;
 		full.add(score, constraints);
 		constraints.gridx = 0;
 		constraints.gridy = 1;
 		constraints.gridwidth = 2;
+		constraints.weighty = 0.0;
+		constraints.weightx =.7;
 		full.add(playcards, constraints);
 		constraints.gridx= 0;
 		constraints.gridy = 2;
 		constraints.gridwidth = 2;
+		constraints.weighty = 1.0;
 		full.add(scrollPane, constraints);
 		constraints.gridx =2;
 		constraints.gridwidth = 1;
-		full.add(interaction);
+		constraints.weightx = .3;
+		full.add(interaction, constraints);
 		//add main panel to window
 		window.add(full);
 		//add the menubar

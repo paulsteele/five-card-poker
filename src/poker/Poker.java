@@ -33,7 +33,7 @@ public class Poker implements Runnable{
 		Poker.lock = game;
 		Window window = new Window(game);
 		game.passWindow(window);
-		window.redrawScore();
+		beginningDrawTasks(window);
 		
 	}
 	/**
@@ -248,5 +248,12 @@ public class Poker implements Runnable{
 	}
 	public static void setLock(Object lock) {
 		Poker.lock = lock;
+	}
+	
+	private static void beginningDrawTasks(Window window){
+		window.redrawScore();
+		window.clearCommunity();
+		window.clearPlayerCards();
+		window.printToPlayerCards("\n\n"); //useful for not spazzing out resizing
 	}
 }
