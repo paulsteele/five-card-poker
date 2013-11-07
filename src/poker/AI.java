@@ -13,6 +13,10 @@ public class AI extends Player{
 	
 	private Random rand = new Random();
 	
+	public AI(Poker game){
+		super(game);
+	}
+	
 	public int getBlind(boolean big) throws InterruptedException{
 		Poker.sleep(500);
 		Poker.sleep(1500);
@@ -47,5 +51,11 @@ public class AI extends Player{
 		currentBid += howmuch;
 		return howmuch;
 		
+	}
+	
+	public int currentScore() {
+		Hand combined = Hand.combine(getHand(), game.getCommunity());
+		combined.sort();
+		return combined.rescore();
 	}
 }

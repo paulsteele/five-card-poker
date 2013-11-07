@@ -42,10 +42,10 @@ public class Poker implements Runnable{
 	public Poker(int playersd) {
 		this.PLAYERS = playersd;
 		players = new Player[PLAYERS+1];
-		players[1] = new Human();
+		players[1] = new Human(this);
 		//create players
 		for (int i = 2; i < PLAYERS + 1; i++){
-			players[i] = new AI();
+			players[i] = new AI(this);
 		}
 		//initialization
 		for (int i = 1; i < PLAYERS+1;i++){
@@ -113,16 +113,19 @@ public class Poker implements Runnable{
 				players[i].getHand().add(deck.draw());
 				players[i].getHand().add(deck.draw());
 			}
-			//print players cards to screen
-			win.clearPlayerCards();
-			win.printToPlayerCards(players[1].getHand().getCard(0).toString()+"\n");
-			win.printToPlayerCards(players[1].getHand().getCard(1).toString()+"\n");
-			
-			
-			
+
 			//Say that the dealer deals
 			
 			players[dealer].speak("deals two cards to each player");
+			Poker.sleep(400);
+			//print players cards to screen
+			win.clearPlayerCards();
+			win.printToPlayerCards(players[1].getHand().getCard(0).toString()+"\n\n");
+			Poker.sleep(750);
+			//hack to make the UI not spazz on resize
+			win.clearPlayerCards();
+			win.printToPlayerCards(players[1].getHand().getCard(0).toString()+"\n");
+			win.printToPlayerCards(players[1].getHand().getCard(1).toString()+"\n");
 			//Clear each players current bid
 			for (int i = 1; i < PLAYERS + 1;i++){
 				players[i].setCurrentBid(0);
@@ -253,5 +256,9 @@ public class Poker implements Runnable{
 		window.clearCommunity();
 		window.clearPlayerCards();
 		window.printToPlayerCards("\n\n"); //useful for not spazzing out resizing
+	}
+	
+	public Hand getCommunity(){
+		return community;
 	}
 }

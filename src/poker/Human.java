@@ -3,6 +3,10 @@ package poker;
 public class Human extends Player {
 	
 	
+	public Human(Poker game){
+		super(game);
+	}
+	
 	public int getBlind(boolean big) throws InterruptedException{
 		Poker.sleep(500);
 		int blind;

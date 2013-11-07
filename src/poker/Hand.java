@@ -64,7 +64,7 @@ public class Hand{
 											score = 1;
 		}
 		catch (ArrayIndexOutOfBoundsException e){
-			System.out.println("CANNOT RESCORE A HAND OF FIVE. MUST BE SEVEN");
+			System.err.println("HAND ARRAY OUT OF BOUNDS");
 		}
 		return score;
 		
@@ -150,7 +150,7 @@ public class Hand{
 	}
 	
 	public boolean checkRoyalFlush(){
-		for (int i = 0; i < 3; i++){//only does process for first three cards in collective hand
+		for (int i = 0; i < hand.length - 4; i++){//only does process for first three cards in collective hand
 			if (hand[i].getSuit() == hand[i+1].getSuit() && 
 					hand[i].getSuit() == hand[i+2].getSuit() && 
 					hand[i].getSuit() == hand[i+3].getSuit() &&
@@ -170,7 +170,7 @@ public class Hand{
 	}
 	
 	public boolean checkStraightFlush(){
-		for (int i =0; i < 3; i++){
+		for (int i =0; i < hand.length - 4; i++){
 			if (hand[i].getSuit() == hand[i+1].getSuit() && 
 					hand[i].getSuit() == hand[i+2].getSuit() && 
 					hand[i].getSuit() == hand[i+3].getSuit() &&

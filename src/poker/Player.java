@@ -7,6 +7,15 @@ public abstract class Player {
 	protected Hand hand;
 	protected int currentBid;
 	protected Window window;
+	protected Poker game;
+	
+	public Player(Poker game){
+		this.game = game;
+	}
+	
+	public Poker getGame(){
+		return game;
+	}
 	
 	public String getName(){
 		return name;
