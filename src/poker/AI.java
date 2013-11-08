@@ -16,6 +16,7 @@ public class AI extends Player{
 	public AI(Poker game){
 		super(game);
 	}
+	private double aggressivess = 22.5;
 	
 	public int getBlind(boolean big) throws InterruptedException{
 		Poker.sleep(500);
@@ -55,8 +56,9 @@ public class AI extends Player{
 				lastRound = game.getRound();
 			}
 			
-			double probability = (currentScore() -1) / 10;
+			double probability = (currentScore()-1.0);
 			probability *= reccurance;
+			probability *= aggressivess;
 			if (rand.nextDouble() < probability){
 				//increase bid
 				howmuch = past - currentBid + 10;
