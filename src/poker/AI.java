@@ -12,7 +12,7 @@ import java.util.Random;
 public class AI extends Player{
 	
 	private Random rand = new Random();
-	
+	private int lastRound =-1; //the last round bet on
 	public AI(Poker game){
 		super(game);
 	}
@@ -44,9 +44,30 @@ public class AI extends Player{
 	public int getBid(int past) throws InterruptedException{
 		Poker.sleep(500);
 		Poker.sleep(750);
-		
-		int howmuch = past - currentBid;
-		speak("calls the bid by putting in "+ howmuch);
+		boolean oneround = false;
+		int howmuch=0;
+		double reccurance = 1.0;
+		while (!oneround || (howmuch < past - currentBid)){ //short circuit to always request at least once
+			if (lastRound == game.getRound()){
+				reccurance -= .1;
+			}
+			else {
+				lastRound = game.getRound();
+			}
+			
+			double probability = (currentScore() -1) / 10;
+			probability *= reccurance;
+			if (rand.nextDouble() < probability){
+				//increase bid
+				howmuch = past - currentBid + 10;
+			}
+			else {
+				//call
+				howmuch = past - currentBid;
+			}
+			oneround = true;
+		}
+		speak("bids "+ howmuch);
 		changeCash(-howmuch);
 		currentBid += howmuch;
 		return howmuch;

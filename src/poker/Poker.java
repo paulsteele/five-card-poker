@@ -22,6 +22,7 @@ public class Poker implements Runnable{
 	private static Object lock;
 	public static Object dropbox; //used to store values to be passed between threads
 	private Window win;
+	private int round; //number of betting rounds
 	/**
 	 * main()
 	 * 
@@ -94,6 +95,7 @@ public class Poker implements Runnable{
 	public void run(){
 		try { //allows interruption
 			int temp; //this number is used when temporary values need to be sent to two different functions
+			round = 0;
 			deck = new Deck();
 			for (int i = 0; i < 20; i++){
 				deck.shuffle();
@@ -206,7 +208,7 @@ public class Poker implements Runnable{
 		while (!done){
 			//gets players' bids
 			for (int i = 1; i < PLAYERS +1; i++){
-				if ((!oneround || players[i].meetingBid(bid)) && !players[i].folding) {
+				if ((!oneround || !players[i].meetingBid(bid)) && !players[i].folding) {
 					temp = players[i].getBid(bid);
 					pot += temp;
 					win.redrawScore();
@@ -225,6 +227,7 @@ public class Poker implements Runnable{
 			
 		}
 		bid = 0;
+		round++;
 		for (int i = 1; i < PLAYERS +1; i++ ) {
 			players[i].setCurrentBid(0);
 		}
@@ -260,5 +263,9 @@ public class Poker implements Runnable{
 	
 	public Hand getCommunity(){
 		return community;
+	}
+	
+	public int getRound(){
+		return round;
 	}
 }
