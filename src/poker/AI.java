@@ -48,7 +48,7 @@ public class AI extends Player{
 		boolean oneround = false;
 		int howmuch=0;
 		double reccurance = 1.0;
-		while (!oneround || (howmuch < past - currentBid)){ //short circuit to always request at least once
+		while (!oneround){ //short circuit to always request at least once
 			if (lastRound == game.getRound()){
 				reccurance -= .1;
 			}
@@ -71,7 +71,7 @@ public class AI extends Player{
 		}
 		speak("bids "+ howmuch);
 		changeCash(-howmuch);
-		currentBid += howmuch;
+		currentBid = howmuch;
 		return howmuch;
 		
 	}
