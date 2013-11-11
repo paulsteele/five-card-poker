@@ -205,6 +205,7 @@ public class Poker implements Runnable{
 		boolean done = false;
 		int temp;
 		boolean oneround = false;
+		
 		while (!done){
 			//gets players' bids
 			for (int i = 1; i < PLAYERS +1; i++){
@@ -212,8 +213,8 @@ public class Poker implements Runnable{
 					temp = players[i].getBid(bid);
 					pot += temp;
 					win.redrawScore();
-					if (temp > bid){
-						bid = temp ;
+					if (players[i].getCurrentBid() > bid){
+						bid = players[i].getCurrentBid() ;
 					}
 				}
 			}		
