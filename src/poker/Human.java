@@ -28,7 +28,7 @@ public class Human extends Player {
 		boolean oneround = false;
 		while (!oneround || (bid < past)){
 			window.print("Please enter your bid");
-			window.print("You need to bid " + (past - currentBid) + " in order to call");
+			window.print("You need to bid " + (past - currentBid));
 			Poker.setLock(this);
 			synchronized (Poker.getLock()){
 					window.buttonsEnabled(true);
@@ -52,6 +52,7 @@ public class Human extends Player {
 			bid = (int) Poker.dropbox;
 			oneround = true;
 		}
+		speak("bids "+ bid);
 		changeCash(-bid);
 		currentBid += bid;
 		return bid;
