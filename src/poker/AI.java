@@ -71,7 +71,7 @@ public class AI extends Player{
 		}
 		speak("bids "+ howmuch);
 		changeCash(-howmuch);
-		currentBid = past;
+		currentBid += howmuch;
 		return howmuch;
 		
 	}
