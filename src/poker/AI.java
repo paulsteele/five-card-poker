@@ -16,7 +16,7 @@ public class AI extends Player{
 	public AI(Poker game){
 		super(game);
 	}
-	private double aggressivess = 22.5;
+	private double aggressivess = 0;
 	
 	public int getBlind(boolean big) throws InterruptedException{
 		Poker.sleep(500);
