@@ -9,7 +9,7 @@ package poker;
  *
  */
 public class Poker implements Runnable{
-	public final int PLAYERS;
+	private int PLAYERS;
 	private int currentPlayer; //contains who the current player is
 	private Player[] players;
 	private final int STARTING_CASH = 500;
@@ -30,7 +30,7 @@ public class Poker implements Runnable{
 	 * @param args
 	 */
 	public static void main(String[] args) {//Actual game runtime
-		Poker game = new Poker(5);
+		Poker game = new Poker();
 		Poker.lock = game;
 		Window window = new Window(game);
 		game.passWindow(window);
@@ -38,9 +38,12 @@ public class Poker implements Runnable{
 		
 	}
 	/**
-	 * Constructor
+	 * initPoker
+	 * 
+	 * MUST BE DONE BEFORE ANYTHING IS USED FOR POKER.
+	 * WAS THE CONSTRUCTOR BUT IS NOT ANYMORE
 	 */
-	public Poker(int playersd) {
+	public void initPoker(int playersd) {
 		this.PLAYERS = playersd;
 		players = new Player[PLAYERS+1];
 		players[1] = new Human(this);
@@ -59,6 +62,10 @@ public class Poker implements Runnable{
 		currentPlayer = 1;
 		community = new Hand();
 		dealer = 1;
+		for (int i = 1; i < PLAYERS + 1; i++){
+			players[i].setWindow(win);
+		}
+		win.redrawScore();
 	}
 	
 	/**
@@ -244,9 +251,6 @@ public class Poker implements Runnable{
 	 */
 	public void passWindow(Window window){
 		win = window;
-		for (int i = 1; i < PLAYERS + 1; i++){
-			players[i].setWindow(window);
-		}
 	}
 	public static Object getLock() {
 		return lock;
@@ -268,5 +272,9 @@ public class Poker implements Runnable{
 	
 	public int getRound(){
 		return round;
+	}
+	
+	public int getNumberOfPlayers(){
+		return PLAYERS;
 	}
 }

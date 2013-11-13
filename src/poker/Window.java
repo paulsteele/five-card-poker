@@ -146,6 +146,7 @@ public class Window {
 					}
 				}
 				if (start){
+					caller.initPoker(playerNum);
 					background = new Thread(caller);
 					background.start();
 				}
@@ -241,7 +242,7 @@ public class Window {
 
 	public void redrawScore(){
 		score.setText("-----Cash Amounts-----\n"); //clears out the text
-		for (int i = 1; i < caller.PLAYERS + 1; i++){
+		for (int i = 1; i < caller.getNumberOfPlayers() + 1; i++){
 			score.append(caller.getPlayer(i).getName()+": $"+caller.getPlayer(i).getCash() + "\n");
 		}
 		score.append("\nCash in pot: " + caller.getPot());
