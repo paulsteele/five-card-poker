@@ -127,8 +127,28 @@ public class Window {
 				if (background != null){
 					background.interrupt();
 				}
-				background = new Thread(caller);
-				background.start();
+				boolean start = true;
+				boolean okay = false;
+				int playerNum = 0;
+				String message = "How many computer players?";
+				while(!okay){
+					String numberAI = JOptionPane.showInputDialog(null,message,"New Game", JOptionPane.QUESTION_MESSAGE);
+					if (numberAI == null){
+						start = false;
+						break;
+					}
+					try {
+						playerNum = Integer.parseInt(numberAI) + 1;
+						okay = true;
+					}
+					catch (NumberFormatException e){
+						message = "Invalid number. Try again";
+					}
+				}
+				if (start){
+					background = new Thread(caller);
+					background.start();
+				}
 			}
 		});
 		how = new JMenuItem("How to play");
