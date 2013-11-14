@@ -167,6 +167,14 @@ public class Poker implements Runnable{
 			community.add(tempCard);
 			win.printToCommunity(tempCard.toString()+"\n");
 			Poker.sleep(750);
+			for (int i = 1; i < PLAYERS + 1; i++){
+		
+				
+				players[i].speak("Plays has a " + players[i].getScoreName());
+				Poker.sleep(550);
+				
+				
+			}
 		}
 		catch (InterruptedException e){
 			//simply end the run if an interruption occurs

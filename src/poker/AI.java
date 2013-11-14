@@ -73,9 +73,5 @@ public class AI extends Player{
 		
 	}
 	
-	public int currentScore() {
-		Hand combined = Hand.combine(getHand(), game.getCommunity());
-		combined.sort();
-		return combined.rescore();
-	}
+
 }

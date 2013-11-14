@@ -71,4 +71,25 @@ public abstract class Player {
 	public void setWindow(Window window){
 		this.window = window;
 	}
+	public int currentScore() {
+		Hand combined = Hand.combine(getHand(), game.getCommunity());
+		combined.sort();
+		return combined.rescore();
+	}
+	
+	public String getScoreName() {
+		switch (currentScore()){
+			case 10: return "Royal Flush";
+			case 9: return "Straight Flush";
+			case 8: return "Four of a Kind";
+			case 7: return "Full House";
+			case 6: return "Flush";
+			case 5: return "Straight";
+			case 4: return "Three of a Kind";
+			case 3: return "Two Pairs";
+			case 2: return "One Pair";
+			case 1: return "Junk";
+			default: return "Junk";
+		}
+	}
 }

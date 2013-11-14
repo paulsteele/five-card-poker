@@ -127,7 +127,7 @@ public class Window {
 				boolean start = true;
 				boolean okay = false;
 				int playerNum = 0;
-				String message = "How many computer players?";
+				String message = "How many players?";
 				while(!okay){
 					String numberAI = JOptionPane.showInputDialog(null,message,"New Game", JOptionPane.QUESTION_MESSAGE);
 					if (numberAI == null){
@@ -135,7 +135,7 @@ public class Window {
 						break;
 					}
 					try {
-						playerNum = Integer.parseInt(numberAI) + 1;
+						playerNum = Integer.parseInt(numberAI);
 						okay = true;
 					}
 					catch (NumberFormatException e){
