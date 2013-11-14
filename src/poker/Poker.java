@@ -30,10 +30,7 @@ public class Poker implements Runnable{
 	 * @param args
 	 */
 	public static void main(String[] args) {//Actual game runtime
-		Poker game = new Poker(5);
-		Poker.lock = game;
-		Window window = new Window(game);
-		game.passWindow(window);
+		Window window = new Window();
 		beginningDrawTasks(window);
 		
 	}
@@ -41,6 +38,7 @@ public class Poker implements Runnable{
 	 * Constructor
 	 */
 	public Poker(int playersd) {
+		Poker.lock = this;
 		this.PLAYERS = playersd;
 		players = new Player[PLAYERS+1];
 		players[1] = new Human(this);

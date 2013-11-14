@@ -30,9 +30,9 @@ public class Window {
 	private JFrame window;
 	private Thread background;
 	
-	public Window(final Poker caller) {
-		this.caller = caller;
+	public Window() {
 		//Creates the Main Window and sets settings
+		final Window win = this;
 		window = new JFrame("Texas Hold 'em");
 		window.setSize(640, 480);
 		window.setMinimumSize(new Dimension(640,480));
@@ -124,9 +124,6 @@ public class Window {
 		play = new JMenuItem("Play new game"); 
 		play.addActionListener(new ActionListener (){
 			public void actionPerformed(ActionEvent ae) {
-				if (background != null){
-					background.interrupt();
-				}
 				boolean start = true;
 				boolean okay = false;
 				int playerNum = 0;
@@ -146,6 +143,13 @@ public class Window {
 					}
 				}
 				if (start){
+					if (background != null){
+						background.interrupt();
+					}
+					//Actual Creation
+					caller = new Poker(playerNum);
+					caller.passWindow(win);
+					win.redrawScore();
 					background = new Thread(caller);
 					background.start();
 				}
@@ -241,10 +245,12 @@ public class Window {
 
 	public void redrawScore(){
 		score.setText("-----Cash Amounts-----\n"); //clears out the text
-		for (int i = 1; i < caller.PLAYERS + 1; i++){
-			score.append(caller.getPlayer(i).getName()+": $"+caller.getPlayer(i).getCash() + "\n");
+		if (caller != null){
+			for (int i = 1; i < caller.PLAYERS + 1; i++){
+				score.append(caller.getPlayer(i).getName()+": $"+caller.getPlayer(i).getCash() + "\n");
+			}
+			score.append("\nCash in pot: " + caller.getPot());
 		}
-		score.append("\nCash in pot: " + caller.getPot());
 	}
 
 	
