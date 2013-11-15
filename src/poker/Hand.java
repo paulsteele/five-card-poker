@@ -35,38 +35,38 @@ public class Hand{
 		
 		try {
 		if (checkRoyalFlush())
-			score = 10;
+			return 10;
 		else
 			if (checkStraightFlush())
-				score = 9;
+				return 9;
 			else
 				if (checkFourOfKind())
-					score = 8;
+					return 8;
 				else
 					if (checkFullHouse())
-						score = 7;
+						return 7;
 					else
 						if (checkFlush())
-							score = 6;
+							return 6;
 						else
 							if (checkStraight())
-								score = 5;
+								return 5;
 							else
 								if (checkThreeOfKind())
-									score = 4;
+									return 4;
 								else
 									if (checkTwoPair())
-										score = 3;
+										return 3;
 									else
 										if (checkOnePair())
-											score = 2;
+											return 2;
 										else
-											score = 1;
+											return 1;
 		}
 		catch (ArrayIndexOutOfBoundsException e){
 			System.err.println("HAND ARRAY OUT OF BOUNDS");
 		}
-		return score;
+		return -1;
 		
 	}
 	/**
@@ -291,13 +291,14 @@ public class Hand{
 			counter[hand[i].getNumber()] +=1;
 		}
 		
-		for (int i = 0; i < hand.length; i++){
+		for (int i = 0; i < counter.length; i++){
 			if (counter[i] >2){
 				lead = i;
 				return true;
 			}
 		}
 		return false;
+		
 	}
 	
 	public boolean checkTwoPair(){
@@ -307,7 +308,7 @@ public class Hand{
 			counter[hand[i].getNumber()] +=1;
 		}
 		
-		for (int i = 0; i < hand.length; i++){
+		for (int i = 0; i < counter.length; i++){
 			if (counter[i] >1){
 				if (lead != -1){
 					lead = i;
@@ -316,7 +317,7 @@ public class Hand{
 				
 			}
 		}
-		if (numofpairs == 2){
+		if (numofpairs >= 2){
 			return true;
 		}
 		return false;
@@ -329,13 +330,13 @@ public class Hand{
 			counter[hand[i].getNumber()] +=1;
 		}
 		
-		for (int i = 0; i < hand.length; i++){
+		for (int i = 0; i < counter.length; i++){
 			if (counter[i] >1){
 				lead = i;
 				numofpairs+=1;
 			}
 		}
-		if (numofpairs == 1){
+		if (numofpairs >= 1){
 			return true;
 		}
 		return false;

@@ -89,7 +89,7 @@ public abstract class Player {
 			case 3: return "Two Pairs";
 			case 2: return "One Pair";
 			case 1: return "Junk";
-			default: return "Junk";
+			default: return "Purple";
 		}
 	}
 }
