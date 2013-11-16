@@ -167,14 +167,24 @@ public class Poker implements Runnable{
 			community.add(tempCard);
 			win.printToCommunity(tempCard.toString()+"\n");
 			Poker.sleep(750);
+			int winning = -1;
+			int winningScore = 0;
 			for (int i = 1; i < PLAYERS + 1; i++){
 		
+				if (players[i].currentScore() > winningScore){
+					winningScore = players[i].currentScore();
+					winning = i;
+				}
+				
 				
 				players[i].speak("Plays has a " + players[i].getScoreName());
 				Poker.sleep(550);
-				
-				
 			}
+			
+			players[winning].changeCash(pot);
+			pot = 0;
+			win.redrawScore();
+			players[winning].speak("Won the round");
 		}
 		catch (InterruptedException e){
 			//simply end the run if an interruption occurs
