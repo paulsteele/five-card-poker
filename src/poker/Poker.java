@@ -185,6 +185,24 @@ public class Poker implements Runnable{
 			pot = 0;
 			win.redrawScore();
 			players[winning].speak("Won the round");
+			
+			int numberStillIn = 0;
+			for (int i = 1; i < PLAYERS +1; i++){
+				if (!players[i].isFolding()){
+					numberStillIn++;
+				}
+			}
+			
+			if (numberStillIn > 1){
+				Poker.sleep(2000);
+				win.clearCommunity();
+				win.clearPlayerCards();
+				run();
+			}
+			else {
+				win.print("Theres a winner!");
+			}
+			
 		}
 		catch (InterruptedException e){
 			//simply end the run if an interruption occurs
