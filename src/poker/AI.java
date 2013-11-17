@@ -60,12 +60,27 @@ public class AI extends Player{
 		if (rand.nextDouble() < probability){
 			//increase bid
 			howmuch = past - currentBid + 10;
-			speak("bids "+ howmuch);
+			
 		}
 		else {
 			//call
 			howmuch = past - currentBid;
+			
+		}
+		if (howmuch > cash) {
+			howmuch = cash;
+			allIn = true;
+		}
+		if (allIn){
+			speak("goes all-in");
+		}
+		else if (howmuch == past - currentBid){
+			//call message
 			speak("calls the bid by putting in "+ howmuch);
+		}
+		else {
+			//bid message
+			speak("bids "+ howmuch);
 		}
 		changeCash(-howmuch);
 		currentBid += howmuch;

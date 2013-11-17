@@ -8,6 +8,7 @@ public abstract class Player {
 	protected int currentBid;
 	protected Window window;
 	protected Poker game;
+	protected boolean allIn;
 	
 	public Player(Poker game){
 		this.game = game;
@@ -65,7 +66,7 @@ public abstract class Player {
 	}
 	
 	public boolean meetingBid(int bid){
-		return (bid == currentBid);
+		return (allIn || (bid == currentBid));
 	}
 	
 	public void setWindow(Window window){
