@@ -171,7 +171,7 @@ public class Poker implements Runnable{
 			int winningScore = 0;
 			for (int i = 1; i < PLAYERS + 1; i++){
 		
-				if (players[i].currentScore() > winningScore){
+				if (( players[i].currentScore() > winningScore ) && !players[i].isFolding()){
 					winningScore = players[i].currentScore();
 					winning = i;
 				}
