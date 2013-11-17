@@ -104,7 +104,9 @@ public class Poker implements Runnable{
 			deck.shuffle();//start off by shuffling
 			//give each player a brand new hand
 			for (int i = 1; i < PLAYERS + 1; i++){
-				players[i].setHand(new Hand());
+				if (players[i].inGame) {
+					players[i].setHand(new Hand());
+				}
 			}
 			
 			
@@ -186,10 +188,16 @@ public class Poker implements Runnable{
 			win.redrawScore();
 			players[winning].speak("won the round");
 			
+			for (int i = 1; i < PLAYERS +1; i++){
+				if (players[i].cash <= 0){
+					players[i].inGame = false;
+				}
+			}
+			
 			int numberStillIn = 0;
 			int whoin = 0;
 			for (int i = 1; i < PLAYERS +1; i++){
-				if (!players[i].isFolding()){
+				if (players[i].inGame){
 					numberStillIn++;
 					whoin = i;
 				}

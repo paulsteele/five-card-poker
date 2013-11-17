@@ -9,6 +9,7 @@ public abstract class Player {
 	protected Window window;
 	protected Poker game;
 	protected boolean allIn;
+	protected boolean inGame = true;
 	
 	public Player(Poker game){
 		this.game = game;
@@ -29,6 +30,7 @@ public abstract class Player {
 	public void setHand(Hand hand){
 		this.hand = hand;
 		folding = false;
+		
 	}
 	
 	public Hand getHand(){
@@ -50,7 +52,7 @@ public abstract class Player {
 	public abstract int getBid(int past) throws InterruptedException;
 	
 	public boolean isFolding(){
-		return folding;
+		return !inGame || folding;
 	}
 	
 	public void speak(String phrase){
