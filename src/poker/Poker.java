@@ -184,12 +184,14 @@ public class Poker implements Runnable{
 			players[winning].changeCash(pot);
 			pot = 0;
 			win.redrawScore();
-			players[winning].speak("Won the round");
+			players[winning].speak("won the round");
 			
 			int numberStillIn = 0;
+			int whoin = 0;
 			for (int i = 1; i < PLAYERS +1; i++){
 				if (!players[i].isFolding()){
 					numberStillIn++;
+					whoin = i;
 				}
 			}
 			
@@ -200,7 +202,8 @@ public class Poker implements Runnable{
 				run();
 			}
 			else {
-				win.print("Theres a winner!");
+				
+				players[whoin].speak("won the game!");
 			}
 			
 		}
