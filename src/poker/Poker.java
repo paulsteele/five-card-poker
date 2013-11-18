@@ -171,11 +171,14 @@ public class Poker implements Runnable{
 			Poker.sleep(750);
 			int winning = -1;
 			int winningScore = 0;
+			int lead = -1;
 			for (int i = 1; i < PLAYERS + 1; i++){
 		
-				if (( players[i].currentScore() > winningScore ) && !players[i].isFolding()){
+				if ( (( players[i].currentScore() > winningScore ) && !players[i].isFolding()) || 
+						((players[i].currentScore() == winningScore) && ((players[i].getLead() > lead) || players[i].getLead() == 0) && !players[i].isFolding())) {
 					winningScore = players[i].currentScore();
 					winning = i;
+					lead = players[i].getLead();
 				}
 				
 				

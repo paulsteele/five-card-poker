@@ -10,6 +10,7 @@ public abstract class Player {
 	protected Poker game;
 	protected boolean allIn;
 	protected boolean inGame = true;
+	protected int lead;
 	
 	public Player(Poker game){
 		this.game = game;
@@ -77,6 +78,7 @@ public abstract class Player {
 	public int currentScore() {
 		Hand combined = Hand.combine(getHand(), game.getCommunity());
 		combined.sort();
+		lead = combined.getLead();
 		return combined.rescore();
 	}
 	
@@ -94,5 +96,9 @@ public abstract class Player {
 			case 1: return "Junk";
 			default: return "Purple";
 		}
+	}
+	
+	public int getLead(){
+		return lead;
 	}
 }
