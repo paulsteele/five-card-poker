@@ -62,32 +62,28 @@ public class Poker implements Runnable{
 	}
 	
 	/**
-	 * getCurrentPlayer()
-	 * 
-	 * returns an integer of whose turn it is
-	 * @return int
-	 */
-	
-	
-	/**
 	 * run()
 	 * 
-	 * does the actual running of the game
+	 * calls the poker game to be actually run. Can be called multiple times to simulate a real game
 	 * 
 	 */
 	public void run(){
-		try { //allows interruption
-			int temp; //this number is used when temporary values need to be sent to two different functions
-			round = 0;
+		try { //enclosing the method in a try allows it to suppress errors if it is interrupted for some reason
+			
+			int temp; //Reusable temp integer variable
+			round = 0; //used for AI thinking
+			//clears community hand and usable deck
 			deck = new Deck();
 			community = new Hand();
+			
+			//shuffles the deck several times
 			for (int i = 0; i < 20; i++){
 				deck.shuffle();
 			}
-			
+			//clear pot and bid
 			pot = 0;
 			bid = 0;
-			deck.shuffle();//start off by shuffling
+			
 			//give each player a brand new hand
 			for (int i = 1; i < PLAYERS + 1; i++){
 				if (players[i].inGame) {
@@ -96,28 +92,28 @@ public class Poker implements Runnable{
 			}
 			
 			
-			//deal each player 2 cards
+			//deal each player 2 cards and sets current bids to 0
 			for (int i = 1; i < PLAYERS +1; i++){
 				players[i].getHand().add(deck.draw());
 				players[i].getHand().add(deck.draw());
+				players[i].setCurrentBid(0);
 			}
 
 			//Say that the dealer deals
 			
 			players[dealer].speak("deals two cards to each player");
 			Poker.sleep(400);
+			
 			//print players cards to screen
 			win.clearPlayerCards();
 			win.printToPlayerCards(players[1].getHand().getCard(0).toString()+"\n\n");
 			Poker.sleep(750);
+			
 			//hack to make the UI not spazz on resize
 			win.clearPlayerCards();
 			win.printToPlayerCards(players[1].getHand().getCard(0).toString()+"\n");
 			win.printToPlayerCards(players[1].getHand().getCard(1).toString()+"\n");
-			//Clear each players current bid
-			for (int i = 1; i < PLAYERS + 1;i++){
-				players[i].setCurrentBid(0);
-			}
+
 			//big blind left of dealer
 			temp = players[getBlinders()[0]].getBlind(true);
 			pot += temp;
