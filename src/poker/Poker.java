@@ -3,16 +3,16 @@ package poker;
 /**
  * Poker
  * 
- * The full poker game. Includes menu and AI and the whole lot
+ * The model for Poker. Does all computations for a poker match. GUI is handled in window.java
  * 
  * @author Paul Steele
  *
  */
 public class Poker implements Runnable{
-	public final int PLAYERS;
+	public final int PLAYERS; //The number of players in this instance
 	private int currentPlayer; //contains who the current player is
-	private Player[] players;
-	private final int STARTING_CASH = 500;
+	private Player[] players; //array of players in this instance
+	private final int STARTING_CASH = 500; //amount of cash that each player starts with
 	private Deck deck; //the deck of the game
 	private Hand community; //the community cards
 	private int bid; //the highest bid
