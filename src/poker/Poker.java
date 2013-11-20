@@ -58,7 +58,6 @@ public class Poker implements Runnable{
 				players[i].setName("Human " + i);
 		}
 		//set initial dealer
-		community = new Hand();
 		dealer = 1;
 	}
 	
@@ -81,6 +80,7 @@ public class Poker implements Runnable{
 			int temp; //this number is used when temporary values need to be sent to two different functions
 			round = 0;
 			deck = new Deck();
+			community = new Hand();
 			for (int i = 0; i < 20; i++){
 				deck.shuffle();
 			}
