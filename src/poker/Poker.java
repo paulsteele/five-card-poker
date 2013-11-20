@@ -20,12 +20,14 @@ public class Poker implements Runnable{
 	public static final int BIG_BLIND = 10; //the big blind
 	private static Object lock;
 	public static Object dropbox; //used to store values to be passed between threads
-	private Window win;
+	private Window win; //the window associated with this instance
 	private int round; //number of betting rounds
+	
 	/**
 	 * main()
 	 * 
-	 * calls menu and run game
+	 * creates window and performs the beginning drawing tasks
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {//Actual game runtime
@@ -35,13 +37,15 @@ public class Poker implements Runnable{
 	}
 	/**
 	 * Constructor
+	 * @param playersd The number of players to be in the instance
+	 * 
 	 */
 	public Poker(int playersd) {
 		Poker.lock = this;
 		this.PLAYERS = playersd;
+		//creates the players making the first one human, the rest AI
 		players = new Player[PLAYERS+1];
 		players[1] = new Human(this);
-		//create players
 		for (int i = 2; i < PLAYERS + 1; i++){
 			players[i] = new AI(this);
 		}
@@ -53,6 +57,7 @@ public class Poker implements Runnable{
 			else
 				players[i].setName("Human " + i);
 		}
+		//set initial dealer
 		community = new Hand();
 		dealer = 1;
 	}
