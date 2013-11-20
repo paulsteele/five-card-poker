@@ -10,7 +10,6 @@ package poker;
  */
 public class Poker implements Runnable{
 	public final int PLAYERS; //The number of players in this instance
-	private int currentPlayer; //contains who the current player is
 	private Player[] players; //array of players in this instance
 	private final int STARTING_CASH = 500; //amount of cash that each player starts with
 	private Deck deck; //the deck of the game
@@ -54,7 +53,6 @@ public class Poker implements Runnable{
 			else
 				players[i].setName("Human " + i);
 		}
-		currentPlayer = 1;
 		community = new Hand();
 		dealer = 1;
 	}
@@ -65,23 +63,6 @@ public class Poker implements Runnable{
 	 * returns an integer of whose turn it is
 	 * @return int
 	 */
-	
-	public int getCurrentPlayer(){
-		return currentPlayer;
-	}
-	
-	/**
-	 * changePlayer()
-	 * 
-	 * changes from player 1 to player 2 and vice versa
-	 * depending on who the current player is
-	 */
-	public void changePlayer(){
-		if (currentPlayer == PLAYERS)
-			currentPlayer = 1;
-		else
-			currentPlayer +=1;
-	}
 	
 	
 	/**
