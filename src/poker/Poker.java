@@ -220,12 +220,28 @@ public class Poker implements Runnable{
 	
 	private int[] getBlinders(){
 		int[] ret = new int[2];
-		int big = dealer - 1;
-		if (big == 0)
-			big = PLAYERS;
-		int small = dealer +1;
-		if (dealer == PLAYERS)
+		
+		int big = dealer;
+		while(true){
+			
+			big -= 1;
+			if (big == 0)
+				big = PLAYERS;
+			if (players[big].inGame)
+				break;
+		}
+		
+		int small = dealer;
+		while (true){
+			small += 1;
+			
+			if (dealer == PLAYERS)
 			small = 1;
+		
+			if (players[small].inGame)
+				break;
+		}
+		
 		ret[0] = big;
 		ret[1] = small;
 		return ret;
