@@ -188,6 +188,18 @@ public class Poker implements Runnable{
 				}
 			}
 			
+			//advance dealer
+			while (true) {
+				dealer += 1;
+				if (dealer == PLAYERS){
+					dealer = 1;
+				}
+				
+				if (players[dealer].inGame)
+					break;
+			}
+			
+			
 			if (numberStillIn > 1){
 				Poker.sleep(2000);
 				win.clearCommunity();
