@@ -89,6 +89,9 @@ public class Poker implements Runnable{
 				if (players[i].inGame) {
 					players[i].setHand(new Hand());
 				}
+				else {
+					players[i].folding = true;
+				}
 			}
 			
 			
@@ -264,7 +267,7 @@ public class Poker implements Runnable{
 		while(true){
 			
 			big -= 1;
-			if (big == 0)
+			if (big <= 0)
 				big = PLAYERS;
 			if (players[big].inGame)
 				break;
@@ -274,7 +277,7 @@ public class Poker implements Runnable{
 		while (true){
 			small += 1;
 			
-			if (dealer == PLAYERS)
+			if (dealer >= PLAYERS)
 			small = 1;
 		
 			if (players[small].inGame)
