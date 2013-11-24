@@ -114,17 +114,20 @@ public class Poker implements Runnable{
 			win.printToPlayerCards(players[1].getHand().getCard(0).toString()+"\n");
 			win.printToPlayerCards(players[1].getHand().getCard(1).toString()+"\n");
 
-			//big blind left of dealer
+			//collects the big blind and adds to pot
 			temp = players[getBlinders()[0]].getBlind(true);
 			pot += temp;
 			bid = temp;
 			win.redrawScore();
-			//small blind right of dealer
+			
+			//collects the small blind and adds to pot
 			temp = players[getBlinders()[1]].getBlind(false);
 			pot += temp;
 			win.redrawScore();
+			
 			//round of bidding
 			beginBid();
+			
 			//place 3 cards in community card
 			players[dealer].speak("deals three cards to the flop");
 			win.clearCommunity();
@@ -135,22 +138,28 @@ public class Poker implements Runnable{
 				win.printToCommunity(tempCard.toString()+"\n");
 				Poker.sleep(750);
 			}
+			
 			//bidding round 
 			beginBid();
+			
 			//deal 1 card to community
 			players[dealer].speak("deals a card to the turn");
 			tempCard = deck.draw();
 			community.add(tempCard);
 			win.printToCommunity(tempCard.toString()+"\n");
 			Poker.sleep(750);
+			
 			//bidding round
 			beginBid();
+			
 			//deal final card to community
 			players[dealer].speak("deals a card to the river");
 			tempCard = deck.draw();
 			community.add(tempCard);
 			win.printToCommunity(tempCard.toString()+"\n");
 			Poker.sleep(750);
+			
+			//checks who wins the round
 			int winning = -1;
 			int winningScore = 0;
 			int lead = -1;
@@ -215,10 +224,6 @@ public class Poker implements Runnable{
 		catch (InterruptedException e){
 			//simply end the run if an interruption occurs
 		}
-		
-		
-		
-		
 		
 	}
 	
