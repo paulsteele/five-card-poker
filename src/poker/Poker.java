@@ -160,40 +160,26 @@ public class Poker implements Runnable{
 			Poker.sleep(750);
 			
 			//checks who wins the round
-			int winning = -1;
-			int winningScore = 0;
-			int lead = -1;
-			for (int i = 1; i < PLAYERS + 1; i++){
-		
-				if ( (( players[i].currentScore() > winningScore ) && !players[i].isFolding()) || 
-						((players[i].currentScore() == winningScore) && ((players[i].getLead() > lead) || players[i].getLead() == 0) && !players[i].isFolding())) {
-					winningScore = players[i].currentScore();
-					winning = i;
-					lead = players[i].getLead();
-				}
-				
-				
+			int winning = checkRoundWinner();
+			
+			//print all players hands with a delay
+			for (int i = 1; i < PLAYERS + 1; i++) {
 				players[i].speak("Plays has a " + players[i].getScoreName());
 				Poker.sleep(550);
 			}
 			
+			//gives the winner the money in the pot and resets the pot
 			players[winning].changeCash(pot);
 			pot = 0;
 			win.redrawScore();
+			
+			//say who won
 			players[winning].speak("won the round");
 			
+			//kick out players who don't have any money
 			for (int i = 1; i < PLAYERS +1; i++){
 				if (players[i].cash <= 0){
 					players[i].inGame = false;
-				}
-			}
-			
-			int numberStillIn = 0;
-			int whoin = 0;
-			for (int i = 1; i < PLAYERS +1; i++){
-				if (players[i].inGame){
-					numberStillIn++;
-					whoin = i;
 				}
 			}
 			
@@ -208,16 +194,15 @@ public class Poker implements Runnable{
 					break;
 			}
 			
-			
-			if (numberStillIn > 1){
+			//begins a new round if no winner, otherwise says who the winner is
+			if (!checkGameWinner()){
 				Poker.sleep(2000);
 				win.clearCommunity();
 				win.clearPlayerCards();
 				run();
 			}
 			else {
-				
-				players[whoin].speak("won the game!");
+				players[getGameWinner()].speak("won the game!");
 			}
 			
 		}
@@ -225,6 +210,45 @@ public class Poker implements Runnable{
 			//simply end the run if an interruption occurs
 		}
 		
+	}
+	
+	private int checkRoundWinner() {
+		int winning = -1;
+		int winningScore = 0;
+		int lead = -1;
+		for (int i = 1; i < PLAYERS + 1; i++){
+			if ( (( players[i].currentScore() > winningScore ) && !players[i].isFolding()) || 
+					((players[i].currentScore() == winningScore) && ((players[i].getLead() > lead) || players[i].getLead() == 0) && !players[i].isFolding())) {
+				winningScore = players[i].currentScore();
+				winning = i;
+				lead = players[i].getLead();
+			}
+		}
+		return winning;
+	}
+	
+	private boolean checkGameWinner() {
+		int numberStillIn = 0;
+		for (int i = 1; i < PLAYERS +1; i++){
+			if (players[i].inGame){
+				numberStillIn++;
+			}
+		}
+		
+		return (1 == numberStillIn);
+	}
+	
+	private int getGameWinner() {
+		int numberStillIn = 0;
+		int whoin = 0;
+		for (int i = 1; i < PLAYERS +1; i++){
+			if (players[i].inGame){
+				numberStillIn++;
+				whoin = i;
+			}
+		}
+		
+		return whoin;
 	}
 	
 	public Player getPlayer(int play){
