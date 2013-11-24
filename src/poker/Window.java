@@ -165,7 +165,10 @@ public class Window {
 		how = new JMenuItem("How to play");
 		how.addActionListener(new ActionListener (){
 			public void actionPerformed(ActionEvent ae) {
-				
+				JOptionPane.showMessageDialog(null,"Each player is given two cards at the beginning. Between betting rounds cards are added\n" +
+						"to a community hand until the community hand has five cards. Whichever player has the\n" +
+						"best hand their hand combined with the community hand wins the round. When only one player has money left after\n" +
+						"a round they are the winner.","How to play",JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		about = new JMenuItem("About");
