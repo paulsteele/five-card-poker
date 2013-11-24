@@ -136,10 +136,17 @@ public class Window {
 					}
 					try {
 						playerNum = Integer.parseInt(numberAI);
+						if (playerNum < 3 )
+							throw new NumberFormatException("Not enough players");
+						if (playerNum > 24)
+							throw new NumberFormatException("Too many players");
 						okay = true;
+						
 					}
 					catch (NumberFormatException e){
 						message = "Invalid number. Try again";
+						if (e.getMessage().equals("Not enough players") || e.getMessage().equals("Too many players"))
+							message = e.getMessage();
 					}
 				}
 				if (start){
