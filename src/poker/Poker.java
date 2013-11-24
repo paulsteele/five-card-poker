@@ -239,11 +239,9 @@ public class Poker implements Runnable{
 	}
 	
 	private int getGameWinner() {
-		int numberStillIn = 0;
 		int whoin = 0;
 		for (int i = 1; i < PLAYERS +1; i++){
 			if (players[i].inGame){
-				numberStillIn++;
 				whoin = i;
 			}
 		}
