@@ -44,10 +44,6 @@ public abstract class Player {
 	
 	public void changeCash(int difference){
 		cash += difference;
-		if (cash == 0){
-			speak("went all in!");
-			allIn = true;
-		}
 	}
 	public abstract int getBlind(boolean big) throws InterruptedException;
 	public abstract int getBid(int past) throws InterruptedException;
