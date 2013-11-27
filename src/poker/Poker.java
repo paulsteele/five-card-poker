@@ -190,7 +190,7 @@ public class Poker implements Runnable{
 			//advance dealer
 			while (true) {
 				dealer += 1;
-				if (dealer == PLAYERS){
+				if (dealer >= PLAYERS){
 					dealer = 1;
 				}
 				
@@ -278,7 +278,7 @@ public class Poker implements Runnable{
 		while (true){
 			small += 1;
 			
-			if (dealer >= PLAYERS)
+			if (small >= PLAYERS)
 			small = 1;
 		
 			if (players[small].inGame)
