@@ -167,7 +167,7 @@ public class Poker implements Runnable{
 			
 			//print all players hands with a delay
 			for (int i = 1; i < PLAYERS + 1; i++) {
-				if (players[i].isFolding())
+				if (!players[i].isFolding())
 					players[i].speak("Plays has a " + players[i].getScoreName());
 				Poker.sleep(550);
 			}
