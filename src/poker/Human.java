@@ -26,8 +26,11 @@ public class Human extends Player {
 		int bid = 0;
 		Poker.sleep(500);
 		boolean oneround = false;
-		while (!oneround || (bid < past)){
-			window.print("Please enter your bid");
+		while (!oneround || (bid < past) || (bid > cash)){
+			if (bid > cash) 
+				window.print("You can't bid that much");
+			else
+				window.print("Please enter your bid");
 			window.print("You need to bid " + (past - currentBid));
 			Poker.setLock(this);
 			synchronized (Poker.getLock()){
