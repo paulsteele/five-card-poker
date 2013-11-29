@@ -35,6 +35,12 @@ public class Human extends Player {
 		int bid = 0;
 		Poker.sleep(500);
 		boolean oneround = false;
+		if (allIn) {
+			speak("is all in");
+			window.buttonsEnabled(false);
+			return 0;
+		}
+			
 		while (!oneround || (bid < past) || (bid > cash)){
 			if (bid > cash) 
 				window.print("You can't bid that much");
