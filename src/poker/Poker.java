@@ -187,7 +187,7 @@ public class Poker implements Runnable{
 				}
 			}
 			
-			//advance dealer
+			//advance dealer to next player in the game
 			while (true) {
 				dealer += 1;
 				if (dealer >= PLAYERS){
@@ -216,6 +216,13 @@ public class Poker implements Runnable{
 		
 	}
 	
+	/** 
+	 * checkRoundWinner()
+	 * 
+	 * returns player index of the winner of the round
+	 * 
+	 * @return integer of which player index won the round
+	 */
 	private int checkRoundWinner() {
 		int winning = -1;
 		int winningScore = 0;
@@ -231,6 +238,13 @@ public class Poker implements Runnable{
 		return winning;
 	}
 	
+	/**
+	 * checkGameWinner() 
+	 * 
+	 * checks to see if there is an overall winner
+	 * 
+	 * @return boolean of whether or not a winner of game is found
+	 */
 	private boolean checkGameWinner() {
 		int numberStillIn = 0;
 		for (int i = 1; i < PLAYERS +1; i++){
@@ -242,6 +256,13 @@ public class Poker implements Runnable{
 		return (1 == numberStillIn);
 	}
 	
+	/**
+	 * getGameWinner() 
+	 * 
+	 * returns the player index of the game winner
+	 * 
+	 * @return integer of the player index of who is the winner
+	 */
 	private int getGameWinner() {
 		int whoin = 0;
 		for (int i = 1; i < PLAYERS +1; i++){
@@ -253,18 +274,42 @@ public class Poker implements Runnable{
 		return whoin;
 	}
 	
+	/**
+	 * getPlayer
+	 * 
+	 * returns with an object of a requested index
+	 * 
+	 * @param integer of player index requested
+	 * @return Player object of index requested
+	 */
 	public Player getPlayer(int play){
 		return players[play];
 	}
 	
+	/**
+	 * sleep
+	 * 
+	 * utility method to make pausing easier
+	 * 
+	 * @param integer of how long to sleep
+	 * @throws InterruptedException
+	 */
 	public static void sleep(int i) throws InterruptedException{
 				Thread.sleep(i);
 	}
 	
+	/**
+	 * getBlinders
+	 * 
+	 * returns in an array the indicies of the two players who need to post blind
+	 * 
+	 * @return int[2], [0] being the big blinder index while [1] being the small blinder index
+	 */
 	private int[] getBlinders(){
 		int[] ret = new int[2];
 		
 		int big = dealer;
+		//loops through until suitable player is found
 		while(true){
 			
 			big -= 1;
@@ -275,6 +320,7 @@ public class Poker implements Runnable{
 		}
 		
 		int small = dealer;
+		//loops through until suitable player is found
 		while (true){
 			small += 1;
 			
@@ -290,6 +336,14 @@ public class Poker implements Runnable{
 		return ret;
 	}
 	
+	
+	/**
+	 * biginBid
+	 * 
+	 * Does actual work of a single round of bidding
+	 * 
+	 * @throws InterruptedException
+	 */
 	private void beginBid() throws InterruptedException {
 		boolean done = false;
 		int temp;
