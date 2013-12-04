@@ -90,6 +90,14 @@ public class Card {
 		}
 	}
 	
+	
+	/**
+	 * toString()
+	 * 
+	 * returns a more readable string of a card
+	 * 
+	 * @return String
+	 */
 	public String toString(){
 		return getValue() + " of " + getSuitChar();
 	}
