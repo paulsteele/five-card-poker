@@ -382,7 +382,10 @@ public class Poker implements Runnable{
 	}
 	
 	/**
+	 * passWindow(Window)
+	 * 
 	 * passes the game window to various parts of the program
+	 * 
 	 * @param window
 	 */
 	public void passWindow(Window window){
@@ -391,13 +394,37 @@ public class Poker implements Runnable{
 			players[i].setWindow(window);
 		}
 	}
+	
+	/**
+	 * getLock()
+	 * 
+	 * returns the object being used as a lock for synchronization between GUI and model
+	 * 
+	 * @return object
+	 */
 	public static Object getLock() {
 		return lock;
 	}
+	
+	/**
+	 * setLock(Object)
+	 * 
+	 * sets the object being used as a lock for synchronization between GUI and model
+	 * 
+	 * @param lock
+	 */
 	public static void setLock(Object lock) {
 		Poker.lock = lock;
 	}
 	
+	
+	/**
+	 * beginningDrawTasks(Window)
+	 * 
+	 * performs initialization drawing tasks for the specified Window
+	 * 
+	 * @param window
+	 */
 	private static void beginningDrawTasks(Window window){
 		window.redrawScore();
 		window.clearCommunity();
@@ -405,10 +432,25 @@ public class Poker implements Runnable{
 		window.printToPlayerCards("\n\n"); //useful for not spazzing out resizing
 	}
 	
+	/**
+	 * getCommunity()
+	 * 
+	 * returns the Hand object used as the community hand
+	 * 
+	 * @return Hand
+	 */
 	public Hand getCommunity(){
 		return community;
 	}
 	
+	
+	/**
+	 * getRound()
+	 * 
+	 * returns the round number
+	 * 
+	 * @return int
+	 */
 	public int getRound(){
 		return round;
 	}
