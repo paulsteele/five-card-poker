@@ -200,7 +200,12 @@ public class Poker implements Runnable{
 			
 			//begins a new round if no winner, otherwise says who the winner is
 			if (!checkGameWinner()){
-				Poker.sleep(2000);
+				win.roundChange(false);
+				Poker.setLock(this);
+				synchronized (Poker.getLock()){
+					wait();
+				}
+				win.roundChange(true);
 				win.clearCommunity();
 				win.clearPlayerCards();
 				run();

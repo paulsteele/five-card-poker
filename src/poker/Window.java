@@ -288,4 +288,14 @@ public class Window {
 	public void clearPlayerCards(){
 		playcards.setText("-----Your Hand-----\n");
 	}
+	
+	public void roundChange(boolean desired) {
+		bid.setVisible(desired);
+		fold.setVisible(desired);
+		if (desired) 
+			call.setText("Call");
+		else
+			call.setText("Continue");
+		call.setEnabled(!desired);
+	}
 }
