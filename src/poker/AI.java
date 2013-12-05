@@ -53,13 +53,18 @@ public class AI extends Player{
 		else {
 			lastRound = game.getRound();
 		}
+		if (lastScore != currentScore() && timesBid > 0){
+			timesBid -= 1;
+			lastScore = currentScore();
+		}
+		reccurance -= (double) (timesBid ) / 2.0;
 		
 		double probability = (currentScore()-1.0);
 		probability *= reccurance;
 		probability *= aggressivess;
 		if (rand.nextDouble() < probability){
 			//increase bid
-			howmuch = past - currentBid + (int) (10 * rand.nextDouble() * currentScore());
+			howmuch = past - currentBid + (int) (aggressivess * currentScore());
 			
 		}
 		else {
@@ -81,6 +86,7 @@ public class AI extends Player{
 		else {
 			//bid message
 			speak("bids "+ howmuch);
+			timesBid +=1;
 		}
 		changeCash(-howmuch);
 		currentBid += howmuch;

@@ -11,6 +11,8 @@ public abstract class Player {
 	protected boolean allIn;
 	protected boolean inGame = true;
 	protected int lead;
+	protected int timesBid;
+	protected int lastScore;
 	
 	public Player(Poker game){
 		this.game = game;
@@ -31,6 +33,8 @@ public abstract class Player {
 	public void setHand(Hand hand){
 		this.hand = hand;
 		folding = false;
+		timesBid = 0;
+		lastScore = 0;
 		
 	}
 	
