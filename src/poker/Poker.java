@@ -16,7 +16,7 @@ public class Poker implements Runnable{
 	private Hand community; //the community cards
 	private int bid; //the highest bid
 	private int pot; //what's in the pot
-	private int dealer;
+	private int dealer; //which player is the dealer;
 	public static final int BIG_BLIND = 10; //the big blind
 	private static Object lock;
 	public static Object dropbox; //used to store values to be passed between threads
