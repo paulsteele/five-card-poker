@@ -79,6 +79,7 @@ public abstract class Player {
 	public int currentScore() {
 		Hand combined = Hand.combine(getHand(), game.getCommunity());
 		combined.sort();
+		combined.rescore();
 		lead = combined.getLead();
 		return combined.rescore();
 	}
