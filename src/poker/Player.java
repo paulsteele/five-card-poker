@@ -33,6 +33,7 @@ public abstract class Player {
 	public void setHand(Hand hand){
 		this.hand = hand;
 		folding = false;
+		allIn = false;
 		timesBid = 0;
 		lastScore = 0;
 		

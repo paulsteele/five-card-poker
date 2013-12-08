@@ -45,6 +45,13 @@ public class AI extends Player{
 	public int getBid(int past) throws InterruptedException{
 		Poker.sleep(500);
 		Poker.sleep(750);
+		//sees if too much to continue
+		if (past > 10 * currentScore() + 30){
+			speak("folds");
+			folding = true;
+			return 0;
+		}
+		
 		int howmuch=0;
 		double reccurance = 1.0;
 		if (lastRound == game.getRound()){
