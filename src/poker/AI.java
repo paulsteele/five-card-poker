@@ -59,13 +59,13 @@ public class AI extends Player{
 		}
 		reccurance -= ((double)(timesBid )) / 1.5;
 		
-		double probability = (currentScore()-1.0);
+		double probability = (currentScore()-1.0) / 5.0;
 		probability *= reccurance;
-		probability *= aggressivess;
-		probability *= 3;
+		probability *= aggressivess + .1;
 		if (rand.nextDouble() < probability){
 			//increase bid
 			howmuch = past - currentBid + (int) (rand.nextDouble() * aggressivess * currentScore() * 6);
+			int whatis = currentScore();
 			timesBid +=1;
 		}
 		else {
@@ -88,6 +88,7 @@ public class AI extends Player{
 			//bid message
 			speak("bids "+ howmuch);
 		}
+		
 		changeCash(-howmuch);
 		currentBid += howmuch;
 		return howmuch;
