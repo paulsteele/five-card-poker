@@ -64,7 +64,7 @@ public class AI extends Player{
 		probability *= aggressivess + .1;
 		if (rand.nextDouble() < probability){
 			//increase bid
-			howmuch = past - currentBid + (int) (rand.nextDouble() * aggressivess * currentScore() * 6);
+			howmuch = past - currentBid + (int) (rand.nextDouble() * aggressivess * currentScore() * 8);
 			timesBid +=1;
 		}
 		else {
