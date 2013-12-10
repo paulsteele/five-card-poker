@@ -1,13 +1,10 @@
-Fall Term Full Project #1
+#Texas Hold'em GUI
+##Fall Term Full Project #1
 
-A Texas hold em GUI!!!
+###Goal
+The goal of this project was to practice writing GUI code, but it has turned into so much more than that. Things like concurrency were *incorrectly* implemented in this project. Even so I now know the reasons why certain paradigms like View - Model - Controller make so much sense. This project has taken a little over two months, and while there is a lot more that could be done with it I think that it is wholly useable. Midway through I started to follow more consistent git practices as well so this entire project has been a huge benefit to me. Onwards and Upwards!
 
-This is no longer five card draw, this might as well by legit
+###Description
+Texas Hold'em GUI!!!
 
-This project has not followed consistent git practices. Each commit is essentially where I stopped for the day. The next project will utilize branches and feature based commits
-
-This will be the first Full Project that I do for fall semester.
-
-It supports essentially unlimited number of players(1 human, the rest AI). This isn't really practical as a deck only has so many cards but the code supports it. A hard cap will be established at some point.
-
-This is now going to be a GUI application. Might as well implement it before too much work is done on it
+Play Texas hold'em against a definable amount of computer players. This game is only playable with one player. Each player will start out with $500. Blinds are $5 and $10.
