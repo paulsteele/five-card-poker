@@ -234,6 +234,7 @@ public class Hand{
 			}
 			else if (counter[i] > 1){
 				secound = true;
+				secondlead = i;
 			}
 		} 
 		
@@ -252,13 +253,16 @@ public class Hand{
 			if (counter[i] > 4){
 				
 				int special = hand[0].getNumber();
+				int secondspecial = hand[0].getNumber();
 				for (int j = 0; j < hand.length; j++){
 					//go through the special hand
 					if (hand[j].getNumber() == 0 && special != 0 && hand[j].getNumber() > special){
+						secondspecial = special;
 						special = hand[j].getNumber();
 					}
 				}
 				lead = special;
+				secondlead = secondspecial;
 				return true;
 			}
 		}
@@ -316,6 +320,7 @@ public class Hand{
 		
 		for (int i = 0; i < counter.length; i++){
 			if (counter[i] >1){
+					secondlead = lead;
 					lead = i;
 				numofpairs+=1;
 				
