@@ -185,7 +185,7 @@ public class Window {
 				}
 			}
 		});
-		//Initializes MenuBar
+		//Initializes Menu Bar
 		menubar = new JMenuBar();
 		menu.add(play);
 		menu.add(how);
@@ -243,7 +243,7 @@ public class Window {
 		full.add(interaction, constraints);
 		//add main panel to window
 		window.add(full);
-		//add the menubar
+		//add the menu bar
 		window.setJMenuBar(menubar);
 		//start off buttons disabled
 		buttonsEnabled(false);

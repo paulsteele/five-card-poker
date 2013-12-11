@@ -22,7 +22,7 @@ public class Deck{
 	 */
 	public Deck(){
 		deck = new Card[52];//declares deck
-		remainingCards = deck.length; //initializes the remaingCards value
+		remainingCards = deck.length; //initializes the remaining Cards value
 		int suit; //the suit value
 		int number; //the card number value
 		

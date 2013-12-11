@@ -145,7 +145,7 @@ public class Hand{
 	 * getLead()
 	 * 
 	 * returns the leading value in non human readable format
-	 * @return leadingnumber
+	 * @return leading number
 	 */
 	public int getLead(){
 		return lead;

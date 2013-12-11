@@ -3,7 +3,7 @@ package poker;
 /**
  * Poker
  * 
- * The model for Poker. Does all computations for a poker match. GUI is handled in window.java
+ * The model for Poker. Does all computations for a poker match. GUI is handled in window.Java
  * 
  * @author Paul Steele
  *
