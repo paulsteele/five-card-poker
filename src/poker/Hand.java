@@ -310,9 +310,7 @@ public class Hand{
 		
 		for (int i = 0; i < counter.length; i++){
 			if (counter[i] >1){
-				if (lead != -1){
 					lead = i;
-				}
 				numofpairs+=1;
 				
 			}
