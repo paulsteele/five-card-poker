@@ -232,12 +232,14 @@ public class Poker implements Runnable{
 		int winning = -1;
 		int winningScore = 0;
 		int lead = -1;
+		int secondlead = -1;
 		for (int i = 1; i < PLAYERS + 1; i++){
 			if ((( players[i].currentScore() > winningScore ) && !players[i].isFolding()) || 
-					((players[i].currentScore() == winningScore) && ((players[i].getLead() > lead) ))) {
+					((players[i].currentScore() == winningScore) && ((players[i].getLead() > lead) ) && !players[i].isFolding()) || ((players[i].currentScore() ==winningScore ) && players[i].getLead() == lead && players[i].getSecondLead() > secondlead)) {
 				winningScore = players[i].currentScore();
 				winning = i;
 				lead = players[i].getLead();
+				secondlead = players[i].getSecondLead();
 			}
 		}
 		return winning;
