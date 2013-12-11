@@ -110,8 +110,8 @@ public abstract class Player {
 	}
 	
 	public int getSecondLead(){
-		if (lead == 0)
+		if (secondlead == 0)
 			return 13;
-		return lead;
+		return secondlead;
 	}
 }
