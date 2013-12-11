@@ -11,6 +11,7 @@ public class Hand{
 	private Card[] hand; //an array of cards in the hand
 	private int score; //score of the hand
 	private int lead; //the leading card when determining winner
+	private int secondlead;
 	
 	/**
 	 * Constructor
@@ -20,6 +21,7 @@ public class Hand{
 	public Hand(){
 		hand = new Card[0]; //empty card array
 		lead = -1;
+		secondlead = -1;
 	}
 	
 	/**
@@ -147,6 +149,10 @@ public class Hand{
 	 */
 	public int getLead(){
 		return lead;
+	}
+	
+	public int getSecondLead(){
+		return secondlead;
 	}
 	
 	public boolean checkRoyalFlush(){

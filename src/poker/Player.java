@@ -11,6 +11,7 @@ public abstract class Player {
 	protected boolean allIn;
 	protected boolean inGame = true;
 	protected int lead;
+	protected int secondlead;
 	protected int timesBid;
 	protected int lastScore;
 	
@@ -79,9 +80,10 @@ public abstract class Player {
 	public int currentScore() {
 		Hand combined = Hand.combine(getHand(), game.getCommunity());
 		combined.sort();
-		combined.rescore();
+		int score = combined.rescore();
 		lead = combined.getLead();
-		return combined.rescore();
+		secondlead = combined.getSecondLead();
+		return score;
 	}
 	
 	public String getScoreName() {
@@ -101,6 +103,15 @@ public abstract class Player {
 	}
 	
 	public int getLead(){
+		if (lead == 0)
+			return 13;
+		
+		return lead;
+	}
+	
+	public int getSecondLead(){
+		if (lead == 0)
+			return 13;
 		return lead;
 	}
 }
