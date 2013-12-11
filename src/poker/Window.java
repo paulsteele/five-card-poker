@@ -6,6 +6,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
@@ -84,23 +86,19 @@ public class Window {
 		bid = new JButton("Bid");
 		bid.addActionListener(new ActionListener (){
 			public void actionPerformed(ActionEvent ae){
-				String entered = bidfield.getText();
-				int ent;
-				try {
-					ent = Integer.parseInt(entered);
-					Poker.dropbox = ent;
-					synchronized (Poker.getLock()){
-						Poker.getLock().notify();
-					}
-				}
-				catch (NumberFormatException e){
-					print("Invalid Number, please enter again");
-				}
-				finally {
-					bidfield.setText(null);
-				}
+				bidaction();
 			}
 		});
+		
+		//make pressing enter after entering bid simulate pressing enter
+		KeyAdapter enterpress = new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER){
+					bidaction();
+				}
+			}
+		};
+		bidfield.addKeyListener(enterpress);
 		call = new JButton("Call");
 		call.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent ae) {
@@ -298,5 +296,23 @@ public class Window {
 		else
 			call.setText("Continue");
 		call.setEnabled(!desired);
+	}
+	
+	public void bidaction() {
+		String entered = bidfield.getText();
+		int ent;
+		try {
+			ent = Integer.parseInt(entered);
+			Poker.dropbox = ent;
+			synchronized (Poker.getLock()){
+				Poker.getLock().notify();
+			}
+		}
+		catch (NumberFormatException e){
+			print("Invalid Number, please enter again");
+		}
+		finally {
+			bidfield.setText(null);
+		}
 	}
 }
