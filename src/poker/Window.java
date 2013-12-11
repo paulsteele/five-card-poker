@@ -165,16 +165,17 @@ public class Window {
 		how = new JMenuItem("How to play");
 		how.addActionListener(new ActionListener (){
 			public void actionPerformed(ActionEvent ae) {
-				JOptionPane.showMessageDialog(null,"Each player is given two cards at the beginning. Between betting rounds cards are added\n" +
-						"to a community hand until the community hand has five cards. Whichever player has the\n" +
-						"best hand their hand combined with the community hand wins the round. When only one player has money left after\n" +
-						"a round they are the winner.","How to play",JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null,"Each player is given two cards at the beginning of the game. \n" +
+						"Between betting rounds cards are added to the \n" +
+						"table and players can bet on their hands. Whichever player has the\n" +
+						"best collection of cards wins the round. When only one player has\n" +
+						"money left after a round they are the winner.","How to play",JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		about = new JMenuItem("About");
 		about.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent ae) {
-				JOptionPane.showMessageDialog(null, "Programmed by: Paul Steele\nCheck out paul-steele.com", "About",JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Programmed by: Paul Steele\nCheck out paul-steele.com\nReport bugs at https://github.com/paulsteele/texas-hold-em/issues", "About",JOptionPane.PLAIN_MESSAGE);
 			}
 		});
 		exit = new JMenuItem("Exit");
