@@ -9,7 +9,6 @@ package poker;
  */
 public class Hand{
 	private Card[] hand; //an array of cards in the hand
-	private int score; //score of the hand
 	private int lead; //the leading card when determining winner
 	private int secondlead;
 	
